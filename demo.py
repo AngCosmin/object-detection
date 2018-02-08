@@ -26,6 +26,7 @@ greenUpper = (41, 255, 255)
 pts = deque(maxlen=args["buffer"])
 
 width = 400
+height = 300
 
 # Turn on motors
 motors = Motors()
@@ -71,7 +72,8 @@ while True:
 			text = "Height: " + str(frame.shape[0]) + " Width: " + str(frame.shape[1])
 			text += " X: " +  str(int(x)) + " Y: " + str(int(y))
 
-			direction = int(x) - width / 2;
+			direction = int(x) - width / 2
+			verticaly_object_position = int(y) - height / 2
 
 			if direction < -width / 4:
 				text += " Turn left"
@@ -81,8 +83,15 @@ while True:
 				motors.move_motors(35, 0, "forward")				
 			else:
 				text += " Forward"
-				motors.stop()
-				motors.move_motors(35, 35, "forward")				
+				motors.move_motors(35, 35, "forward")	
+
+			if verticaly_object_position < -height / 4:
+				text += " Look up"
+			elif verticaly_object_position > height / 4:
+				text += " Look down"
+			else: 
+				text += " Look forward"			
+			
 
 			cv2.putText(frame, text, (10, frame.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1) #Draw the text
 	else:
