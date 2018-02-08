@@ -104,6 +104,8 @@ while True:
 				else:
 					servoDutyCycle -= 0.5
 
+				servo.changeDutyCycle(servoDutyCycle);
+
 				text += " Look down"
 			else: 
 				text += " Look forward"	
