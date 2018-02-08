@@ -25,7 +25,7 @@ time.sleep(2.0)
 # greenLower = (59, 45, 74)
 # greenUpper = (57, 55, 45)
 
-greenLower = (59, 95, 200)
+greenLower = (59, 90, 50)
 greenUpper = (50, 255, 255)
 
 pts = deque(maxlen=args["buffer"])
