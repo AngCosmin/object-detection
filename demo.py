@@ -41,7 +41,8 @@ while True:
     mask = cv2.dilate(mask, None, iterations=2)
 
     # show the frame
-    cv2.imshow("Frame", mask)
+    cv2.imshow("Frame", frame)    
+    cv2.imshow("Mask", mask)
     key = cv2.waitKey(1) & 0xFF
 
     # if the `q` key was pressed, break from the loop
