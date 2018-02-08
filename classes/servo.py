@@ -26,6 +26,7 @@ class Servo:
     
     def changeDutyCycle(self, value):
         self.PWM_servo.ChangeDutyCycle(value)
+        GPIO.output(self.PIN, GPIO.LOW)        
 
     def cleanup_pins(self):
         print '[PINS] Cleaning up pins...'
