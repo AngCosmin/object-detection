@@ -62,7 +62,7 @@ while True:
 			cv2.circle(frame, center, 5, (0, 0, 255), -1)
 			text_x = 10 #position of text
 			text_y = 20 #position of text
-			cv2.putText(frame, str(x) + str(y), (10, frame.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1) #Draw the text
+			cv2.putText(frame, str(int(x)) + "      " + str(int(y)), (10, frame.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1) #Draw the text
 			
  
 	# update the points queue
