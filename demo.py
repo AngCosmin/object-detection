@@ -75,13 +75,13 @@ while True:
 
 			if direction < -25:
 				text += " Turn left"
-				motors.move_motors(0, 50, "forward")
+				motors.move_motors(0, 35, "forward")
 			elif direction > 25:
 				text += " Turn right"
-				motors.move_motors(50, 0, "forward")				
+				motors.move_motors(35, 0, "forward")				
 			else:
 				text += " Forward"
-				motors.move_motors(50, 50, "forward")				
+				motors.move_motors(35, 35, "forward")				
 
 			cv2.putText(frame, text, (10, frame.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1) #Draw the text
 		else:

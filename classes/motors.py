@@ -48,32 +48,45 @@ class Motors:
         motorLeftSpeed = abs(motorLeftSpeed)
         motorRightSpeed = abs(motorRightSpeed)
 
-        self.PWM_left.ChangeDutyCycle(motorLeftSpeed)
-        self.PWM_right.ChangeDutyCycle(motorRightSpeed)
+        if motorLeftSpeed == 0:
+            self.stop_left()
+        else:
+            self.PWM_left.ChangeDutyCycle(motorLeftSpeed)
+            self.activate_motor_left_pins(direction)
 
-        self.activate_motor_left_pins(direction)
-        self.activate_motor_right_pins(direction)
+        if motorRightSpeed == 0:
+            self.stop_right()
+        else:
+            self.PWM_right.ChangeDutyCycle(motorRightSpeed)
+            self.activate_motor_right_pins(direction)
+
+
+    def stop_left(self):
+        GPIO.output(self.PIN_1_LEFT, False)
+        GPIO.output(self.PIN_2_LEFT, False)
+        GPIO.output(self.PIN_PWM_LEFT, False)
+
+    def stop_right(self):
+        GPIO.output(self.PIN_1_RIGHT, False)
+        GPIO.output(self.PIN_2_RIGHT, False)
+        GPIO.output(self.PIN_PWM_RIGHT, False)
 
     def activate_motor_left_pins(self, direction):
         if direction == 'forward':
-            print '[ML] Setting PINs for direction: forward'
             GPIO.output(self.PIN_1_LEFT, False)
             GPIO.output(self.PIN_2_LEFT, True)
             GPIO.output(self.PIN_PWM_LEFT, True)
         elif direction == 'backward':
-            print '[ML] Setting PINs for direction: backward'            
             GPIO.output(self.PIN_1_LEFT, True)
             GPIO.output(self.PIN_2_LEFT, False)
             GPIO.output(self.PIN_PWM_LEFT, True) 
             
     def activate_motor_right_pins(self, direction):
         if direction == 'forward':
-            print '[MR] Setting PINs for direction: forward'            
             GPIO.output(self.PIN_1_RIGHT, False)
             GPIO.output(self.PIN_2_RIGHT, True)
             GPIO.output(self.PIN_PWM_RIGHT, True)
         elif direction == 'backward':
-            print '[MR] Setting PINs for direction: backward'            
             GPIO.output(self.PIN_1_RIGHT, True)
             GPIO.output(self.PIN_2_RIGHT, False)
             GPIO.output(self.PIN_PWM_RIGHT, True) 
