@@ -2,6 +2,7 @@
 
 # import the necessary packages
 from imutils.video import VideoStream
+from collections import deque
 import datetime
 import argparse
 import imutils
