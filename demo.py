@@ -69,14 +69,14 @@ while True:
 	# update the points queue
 	pts.appendleft(center)
 
-    # show the frame
-    cv2.imshow("Frame", frame)    
-    cv2.imshow("Mask", mask)
-    key = cv2.waitKey(1) & 0xFF
+	# show the frame
+	cv2.imshow("Frame", frame)    
+	cv2.imshow("Mask", mask)
+	key = cv2.waitKey(1) & 0xFF
 
-    # if the `q` key was pressed, break from the loop
-    if key == ord("q"):
-        break
+	# if the `q` key was pressed, break from the loop
+	if key == ord("q"):
+		break
  
 # do a bit of cleanup
 cv2.destroyAllWindows()
