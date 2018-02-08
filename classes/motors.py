@@ -71,6 +71,10 @@ class Motors:
         GPIO.output(self.PIN_2_RIGHT, False)
         GPIO.output(self.PIN_PWM_RIGHT, False)
 
+    def stop(self):
+        self.stop_left()
+        self.stop_right()
+
     def activate_motor_left_pins(self, direction):
         if direction == 'forward':
             GPIO.output(self.PIN_1_LEFT, False)
