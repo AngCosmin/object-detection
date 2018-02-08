@@ -60,10 +60,9 @@ while True:
 			# then update the list of tracked points
 			cv2.circle(frame, (int(x), int(y)), int(radius), (0, 255, 255), 2)
 			cv2.circle(frame, center, 5, (0, 0, 255), -1)
-			font = cv2.InitFont(cv2.CV_FONT_HERSHEY_SIMPLEX, 1, 1, 0, 3, 8) #Creates a font
 			text_x = 10 #position of text
 			text_y = 20 #position of text
-			cv2.PutText(frame, str(x) + str(y), (text_x, text_y), font, 255) #Draw the text
+			cv2.PutText(frame, str(x) + str(y), (text_x, text_y), cv2.FONT_HERSHEY_SIMPLEX, 255) #Draw the text
 			
  
 	# update the points queue
