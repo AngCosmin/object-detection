@@ -3,6 +3,7 @@
 # import the necessary packages
 from imutils.video import VideoStream
 from collections import deque
+from classes.motors import Motors
 import datetime
 import argparse
 import imutils
@@ -25,6 +26,10 @@ greenUpper = (41, 255, 255)
 pts = deque(maxlen=args["buffer"])
 
 width = 400
+
+# Turn on motors
+motors = Motors()
+motors.toggleMotors("on")
 
 # loop over the frames from the video stream
 while True:
