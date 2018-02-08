@@ -77,13 +77,13 @@ while True:
 
 			if direction < -width / 4:
 				text += " Turn left"
-				motors.move_motors(0, 35, "forward")
+				# motors.move_motors(0, 35, "forward")
 			elif direction > width / 4:
 				text += " Turn right"
-				motors.move_motors(35, 0, "forward")				
+				# motors.move_motors(35, 0, "forward")				
 			else:
 				text += " Forward"
-				motors.move_motors(35, 35, "forward")	
+				# motors.move_motors(35, 35, "forward")	
 
 			if verticaly_object_position < -height / 4:
 				text += " Look up"
