@@ -94,7 +94,7 @@ while True:
 				if servoDutyCycle < 5:
 					servoDutyCycle = 5
 				else:
-					servoDutyCycle -= 0.5
+					servoDutyCycle -= 0.1
 
 				servo.changeDutyCycle(servoDutyCycle);
 
@@ -103,7 +103,7 @@ while True:
 				if servoDutyCycle > 10:
 					servoDutyCycle = 10
 				else:
-					servoDutyCycle += 0.5
+					servoDutyCycle += 0.1
 					
 				servo.changeDutyCycle(servoDutyCycle);
 
