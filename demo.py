@@ -66,7 +66,7 @@ while True:
 			text = "Height: " + str(frame.shape[0]) + " Width: " + str(frame.shape[1])
 			text += " X: " +  str(int(x)) + " Y: " + str(int(y))
 
-			direction = width / 2 - int(x);
+			direction = int(x) - width / 2;
 
 			if direction < -25:
 				text += " Turn left"
