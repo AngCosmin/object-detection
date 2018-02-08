@@ -4,6 +4,7 @@
 from imutils.video import VideoStream
 from collections import deque
 from classes.motors import Motors
+from classes.servo import Servo
 import datetime
 import argparse
 import imutils
@@ -31,6 +32,9 @@ height = 300
 # Turn on motors
 motors = Motors()
 motors.toggleMotors("on")
+
+# Servo
+servo = Servo()
 
 # loop over the frames from the video stream
 while True:
@@ -86,11 +90,14 @@ while True:
 				# motors.move_motors(35, 35, "forward")	
 
 			if verticaly_object_position < -height / 4:
+				servo.changeDutyCycle(5)
 				text += " Look up"
 			elif verticaly_object_position > height / 4:
 				text += " Look down"
+				servo.changeDutyCycle(10)
 			else: 
-				text += " Look forward"			
+				text += " Look forward"	
+				servo.changeDutyCycle(7.5)		
 			
 
 			cv2.putText(frame, text, (10, frame.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1) #Draw the text
