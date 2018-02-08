@@ -35,8 +35,7 @@ motors.toggleMotors("on")
 
 # Servo
 servo = Servo()
-lastDutyCycle = 0;
-watchingPosition = "center"
+servoDutyCycle = 7.5;
 
 # loop over the frames from the video stream
 while True:
@@ -91,25 +90,23 @@ while True:
 				text += " Forward"
 				# motors.move_motors(35, 35, "forward")	
 
-			if verticaly_object_position < -height / 4:
-				if lastDutyCycle != 10:
-					servo.changeDutyCycle(10)
-					lastDutyCycle = 10
-
+			if verticaly_object_position < -height / 6:
+				if servoDutyCycle > 10:
+					servoDutyCycle = 10
+				else:
+					servoDutyCycle += 0.5
+					
+				servo.changeDutyCycle(servoDutyCycle);
 				text += " Look up"
-			elif verticaly_object_position > height / 4:
-				if lastDutyCycle != 5:
-					servo.changeDutyCycle(5)
-					lastDutyCycle = 5
+			elif verticaly_object_position > height / 6:
+				if servoDutyCycle < 5:
+					servoDutyCycle = 5
+				else:
+					servoDutyCycle -= 0.5
 
 				text += " Look down"
 			else: 
-				if lastDutyCycle != 7.5:
-					servo.changeDutyCycle(7.5)		
-					lastDutyCycle = 7.5	
-						
 				text += " Look forward"	
-			
 
 			cv2.putText(frame, text, (10, frame.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1) #Draw the text
 	else:
