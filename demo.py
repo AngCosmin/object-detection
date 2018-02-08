@@ -17,7 +17,7 @@ args = vars(ap.parse_args())
  
 # initialize the video stream and allow the cammera sensor to warmup
 vs = VideoStream(usePiCamera=args["picamera"] > 0).start()
-time.sleep(2.0)
+time.sleep(1.0)
 
 greenLower = (21, 100, 50)
 greenUpper = (41, 255, 255)
@@ -57,20 +57,20 @@ while True:
 		# only proceed if the radius meets a minimum size
 		if radius > 5:
 			# draw the circle and centroid on the frame,
-			# then update the list of tracked points
 			cv2.circle(frame, (int(x), int(y)), int(radius), (0, 255, 255), 2)
 			cv2.circle(frame, center, 5, (0, 0, 255), -1)
-			text_x = 10 #position of text
-			text_y = 20 #position of text
-			cv2.putText(frame, str(int(x)) + "      " + str(int(y)), (10, frame.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1) #Draw the text
+
+			# write center coords on the screen
+			text = "Height: " + str(frame.shape[0]) + " Width: " + str(frame.shape[1])
+			text += " X: " +  str(int(x)) + " Y: " + str(int(y))
+
+			cv2.putText(frame, text, (10, frame.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1) #Draw the text
 			
- 
-	# update the points queue
-	pts.appendleft(center)
 
 	# show the frame
 	cv2.imshow("Frame", frame)    
 	cv2.imshow("Mask", mask)
+	
 	key = cv2.waitKey(1) & 0xFF
 
 	# if the `q` key was pressed, break from the loop
