@@ -24,12 +24,14 @@ greenUpper = (41, 255, 255)
 
 pts = deque(maxlen=args["buffer"])
 
+width = 400
+
 # loop over the frames from the video stream
 while True:
 	# grab the frame from the threaded video stream and resize it
 	# to have a maximum width of 400 pixels
 	frame = vs.read()
-	frame = imutils.resize(frame, width=400)
+	frame = imutils.resize(frame, width=width)
 
 	# construct a mask for the color "green", then perform
 	# a series of dilations and erosions to remove any small
@@ -63,6 +65,15 @@ while True:
 			# write center coords on the screen
 			text = "Height: " + str(frame.shape[0]) + " Width: " + str(frame.shape[1])
 			text += " X: " +  str(int(x)) + " Y: " + str(int(y))
+
+			direction = width / 2 - int(x);
+
+			if direction < -25:
+				text += " Turn left"
+			elif direction > 25:
+				text += " Turn right"
+			else:
+				text += " Forward"
 
 			cv2.putText(frame, text, (10, frame.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1) #Draw the text
 			
