@@ -28,9 +28,13 @@ while True:
 	# draw the timestamp on the frame
 	timestamp = datetime.datetime.now()
 	ts = timestamp.strftime("%A %d %B %Y %I:%M:%S%p")
-	cv2.putText(frame, ts, (10, frame.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX,
-		0.35, (0, 0, 255), 1)
+	cv2.putText(frame, ts, (10, frame.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1)
  
+    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+    mask = cv2.inRange(hsv, greenLower, greenUpper)
+	mask = cv2.erode(mask, None, iterations=2)
+	mask = cv2.dilate(mask, None, iterations=2)
+
 	# show the frame
 	cv2.imshow("Frame", frame)
 	key = cv2.waitKey(1) & 0xFF
