@@ -92,19 +92,19 @@ while True:
 
 			if verticaly_object_position < -height / 4:
 				if lastDutyCycle != 5:
-					# servo.changeDutyCycle(5)
+					servo.changeDutyCycle(5)
 					lastDutyCycle = 5
 
 				text += " Look up"
 			elif verticaly_object_position > height / 4:
 				if lastDutyCycle != 10:
-					# servo.changeDutyCycle(10)
+					servo.changeDutyCycle(10)
 					lastDutyCycle = 10
 
 				text += " Look down"
 			else: 
 				if lastDutyCycle != 7.5:
-					# servo.changeDutyCycle(7.5)		
+					servo.changeDutyCycle(7.5)		
 					lastDutyCycle = 7.5
 					
 				text += " Look forward"	
