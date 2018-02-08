@@ -91,17 +91,17 @@ while True:
 				# motors.move_motors(35, 35, "forward")	
 
 			if verticaly_object_position < -height / 4:
-				if lastDutyCycle != 5:
-					servo.changeDutyCycle(5)
-					lastDutyCycle = 5
+				if lastDutyCycle != 10:
+					servo.changeDutyCycle(10)
+					lastDutyCycle = 10
 					time.sleep(0.2)
 					motors.stop()
 
 				text += " Look up"
 			elif verticaly_object_position > height / 4:
-				if lastDutyCycle != 10:
-					servo.changeDutyCycle(10)
-					lastDutyCycle = 10
+				if lastDutyCycle != 5:
+					servo.changeDutyCycle(5)
+					lastDutyCycle = 5
 					time.sleep(0.2)
 					motors.stop()
 
