@@ -73,16 +73,15 @@ while True:
 
 			direction = int(x) - width / 2;
 
-			if direction < -50:
+			if direction < -width / 2:
 				text += " Turn left"
 				motors.move_motors(0, 35, "forward")
-			elif direction > 50:
+			elif direction > width / 2:
 				text += " Turn right"
 				motors.move_motors(35, 0, "forward")				
 			else:
 				text += " Forward"
 				motors.stop()
-				time.sleep(0.5)
 				motors.move_motors(35, 35, "forward")				
 
 			cv2.putText(frame, text, (10, frame.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1) #Draw the text
