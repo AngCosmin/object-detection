@@ -84,8 +84,8 @@ while True:
 				motors.move_motors(35, 35, "forward")				
 
 			cv2.putText(frame, text, (10, frame.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1) #Draw the text
-		else:
-			motors.move_motors(0, 0, "forward")
+	else:
+		motors.move_motors(0, 0, "forward")
 
 	# show the frame
 	cv2.imshow("Frame", frame)    
