@@ -73,10 +73,10 @@ while True:
 
 			direction = int(x) - width / 2;
 
-			if direction < -width / 2:
+			if direction < -width / 4:
 				text += " Turn left"
 				motors.move_motors(0, 35, "forward")
-			elif direction > width / 2:
+			elif direction > width / 4:
 				text += " Turn right"
 				motors.move_motors(35, 0, "forward")				
 			else:
