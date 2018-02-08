@@ -31,11 +31,6 @@ while True:
 	frame = vs.read()
 	frame = imutils.resize(frame, width=400)
 
-	# draw the timestamp on the frame
-	timestamp = datetime.datetime.now()
-	ts = timestamp.strftime("%A %d %B %Y %I:%M:%S%p")
-	cv2.putText(frame, ts, (10, frame.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1)
-
 	# construct a mask for the color "green", then perform
 	# a series of dilations and erosions to remove any small
 	# blobs left in the mask
@@ -60,11 +55,16 @@ while True:
 		center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
 
 		# only proceed if the radius meets a minimum size
-		if radius > 10:
+		if radius > 5:
 			# draw the circle and centroid on the frame,
 			# then update the list of tracked points
 			cv2.circle(frame, (int(x), int(y)), int(radius), (0, 255, 255), 2)
 			cv2.circle(frame, center, 5, (0, 0, 255), -1)
+			font = cv2.InitFont(cv2.CV_FONT_HERSHEY_SIMPLEX, 1, 1, 0, 3, 8) #Creates a font
+			text_x = 10 #position of text
+			text_y = 20 #position of text
+			cv2.PutText(frame, str(x) + str(y), (text_x, text_y), font, 255) #Draw the text
+			
  
 	# update the points queue
 	pts.appendleft(center)
