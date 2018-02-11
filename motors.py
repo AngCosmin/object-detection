@@ -19,7 +19,8 @@ motors.toggleMotors("on")
 direction = -100
 
 try:
-	motors.move_motors(0, 10, "forward")
+	while True:
+		motors.move_motors(0, 35, "forward")
 except KeyboardInterrupt:
 	motors.cleanup_pins()
 
