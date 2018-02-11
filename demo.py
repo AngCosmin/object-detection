@@ -82,34 +82,34 @@ while True:
 
 			if direction < -width / 4:
 				text += " Turn left"
-				# motors.move_motors(0, 35, "forward")
+				motors.move_motors(0, 35, "forward")
 			elif direction > width / 4:
 				text += " Turn right"
-				# motors.move_motors(35, 0, "forward")				
+				motors.move_motors(35, 0, "forward")				
 			else:
 				text += " Forward"
-				# motors.move_motors(35, 35, "forward")	
+				motors.move_motors(35, 35, "forward")	
 
-			if verticaly_object_position < -height / 6:
-				if servoDutyCycle < 5:
-					servoDutyCycle = 5
-				else:
-					servoDutyCycle -= 0.1
+			# if verticaly_object_position < -height / 6:
+			# 	if servoDutyCycle < 5:
+			# 		servoDutyCycle = 5
+			# 	else:
+			# 		servoDutyCycle -= 0.1
 
-				servo.changeDutyCycle(servoDutyCycle);
+			# 	servo.changeDutyCycle(servoDutyCycle);
 
-				text += " Look up"
-			elif verticaly_object_position > height / 6:
-				if servoDutyCycle > 10:
-					servoDutyCycle = 10
-				else:
-					servoDutyCycle += 0.1
+			# 	text += " Look up"
+			# elif verticaly_object_position > height / 6:
+			# 	if servoDutyCycle > 10:
+			# 		servoDutyCycle = 10
+			# 	else:
+			# 		servoDutyCycle += 0.1
 					
-				servo.changeDutyCycle(servoDutyCycle);
+			# 	servo.changeDutyCycle(servoDutyCycle);
 
-				text += " Look down"
-			else: 
-				text += " Look forward"	
+			# 	text += " Look down"
+			# else: 
+			# 	text += " Look forward"	
 
 			cv2.putText(frame, text, (10, frame.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1) #Draw the text
 	else:
