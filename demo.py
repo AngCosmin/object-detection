@@ -81,37 +81,31 @@ while True:
 			horizontaly_object_position = int(x) - width / 2
 			verticaly_object_position = int(y) - height / 2
 
-			# Object on the right side of the image
-			if horizontaly_object_position > 25 and horizontaly_object_position < width / 2:
-				# Calculate the percentage for right side
-				object_position_percentage = horizontaly_object_position / (width / 2 - 25) * 200
+			if horizontaly_object_position > 0:
+				# Object on the right side of the image
 
-				if object_position_percentage <= 100:
+				object_position_percentage = horizontaly_object_position / width / 2 * 100
+
+				if object_position_percentage <= 50:
 					if object_position_percentage < 15:
 						object_position_percentage = 15
 
-					text += " LEFT " + str(object_position_percentage) + " RIGHT 0"
+					text += " LEFT " + str(object_position_percentage * 2) + " RIGHT 0"
 					# motors.move_motors(object_position_percentage, 0)	
 				else:
-					if object_position_percentage < 115:
-						object_position_percentage = 115
-
-					text += " LEFT 100 RIGHT " + str(-(object_position_percentage - 100))
+					text += " LEFT 100 RIGHT " + str(object_position_percentage - 50 * 2)
 					# motors.move_motors(100, -(object_position_percentage - 100))	
-			elif horizontaly_object_position < 25 and horizontaly_object_position > -width / 2:
-				object_position_percentage = -horizontaly_object_position / (width / 2 - 25) * 200
+			elif horizontaly_object_position < 0:
+				object_position_percentage = -horizontaly_object_position / width / 2 * 100
 				
-				if object_position_percentage <= 100:
+				if object_position_percentage <= 50:
 					if object_position_percentage < 15:
 						object_position_percentage = 15
 
-					text += " LEFT 0 RIGHT " + str(object_position_percentage)  
+					text += " LEFT 0 RIGHT " + str(object_position_percentage * 2)  
 					# motors.move_motors(0, object_position_percentage)	
 				else:
-					if object_position_percentage < 115:
-						object_position_percentage = 115
-
-					text += " LEFT " + str(-(object_position_percentage - 100)) + " RIGHT 100"
+					text += " LEFT " + str(object_position_percentage - 50 * 2) + " RIGHT 100"
 					# motors.move_motors(-(object_position_percentage - 100), 100)
 			else:
 				text += "LEFT 30 RIGHT 30"
