@@ -115,7 +115,7 @@ while True:
 					motors.move_motors((object_position_percentage - 50) * 2, 100)
 			else:
 				text += "LEFT 30 RIGHT 30"
-				# motors.move_motors(30, 30)
+				motors.move_motors(30, 30)
 
 
 			# if verticaly_object_position < -height / 6:
@@ -141,9 +141,7 @@ while True:
 
 			cv2.putText(frame, text, (10, frame.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1) #Draw the text
 	else:
-		if lastDirection != "none":
-			lastDirection = "none"
-			motors.stop()
+		motors.stop()
 
 	# show the frame
 	cv2.imshow("Frame", frame)    
