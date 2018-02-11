@@ -70,7 +70,7 @@ while True:
 		center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
 
 		# only proceed if the radius meets a minimum size
-		if radius > 7:
+		if radius > 10:
 			# draw the circle and centroid on the frame,
 			cv2.circle(frame, (int(x), int(y)), int(radius), (0, 255, 255), 2)
 			cv2.circle(frame, center, 5, (0, 0, 255), -1)
@@ -84,7 +84,7 @@ while True:
 			if horizontaly_object_position > 0:
 				# Object on the right side of the image
 
-				object_position_percentage = horizontaly_object_position / (width / 2) * 100
+				object_position_percentage = float(horizontaly_object_position) / (width / 2) * 100
 
 				text += " PERC " + str(object_position_percentage) + " WIDTH " + str(width);
 
@@ -98,7 +98,7 @@ while True:
 					text += " LEFT 100 RIGHT " + str((object_position_percentage - 50) * 2)
 					# motors.move_motors(100, -(object_position_percentage - 100))	
 			elif horizontaly_object_position < 0:
-				object_position_percentage = -horizontaly_object_position / (width / 2) * 100
+				object_position_percentage = -float(horizontaly_object_position) / (width / 2) * 100
 
 				text += " PERC " + str(object_position_percentage) + " WIDTH " + str(width);
 				
