@@ -20,7 +20,7 @@ ok = 1
 try:
 	while True:
 		if ok == 1:
-			motors.move_motors(0, 1, "forward")
+			motors.move_motors(0, 5, "forward")
 			ok = 0
 except KeyboardInterrupt:
 	motors.cleanup_pins()
