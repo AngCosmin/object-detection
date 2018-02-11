@@ -3,7 +3,7 @@
 # import the necessary packages
 from imutils.video import VideoStream
 from collections import deque
-from classes.motors import Motors
+from classes.MotorsController import MotorsController
 from classes.servo import Servo
 import datetime
 import argparse
