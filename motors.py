@@ -20,7 +20,7 @@ direction = -100
 
 try:
 	while True:
-		motors.move_motors(0, 35, "forward")
+		motors.move_motors(0, 5, "forward")
 except KeyboardInterrupt:
 	motors.cleanup_pins()
 
