@@ -34,8 +34,10 @@ motors = Motors()
 motors.toggleMotors("on")
 
 # Servo
-servo = Servo()
-servoDutyCycle = 7.5;
+# servo = Servo()
+# servoDutyCycle = 7.5;
+
+lastDirection = "none"
 
 # loop over the frames from the video stream
 while True:
@@ -80,15 +82,18 @@ while True:
 			direction = int(x) - width / 2
 			verticaly_object_position = int(y) - height / 2
 
-			if direction < -width / 4:
+			if direction < -width / 4 and lastDirection != "left":
 				text += " Turn left"
-				motors.move_motors(0, 35, "forward")
-			elif direction > width / 4:
+				lastDirection = "left"
+				motors.move_motors(0, 20, "forward")
+			elif direction > width / 4 and lastDirection != "right":
 				text += " Turn right"
-				motors.move_motors(35, 0, "forward")				
-			else:
+				lastDirection = "right"
+				motors.move_motors(20, 0, "forward")				
+			elif lastDirection != "forward":
 				text += " Forward"
-				motors.move_motors(35, 35, "forward")	
+				lastDirection = "forward"
+				motors.move_motors(20, 20, "forward")	
 
 			# if verticaly_object_position < -height / 6:
 			# 	if servoDutyCycle < 5:
@@ -113,7 +118,10 @@ while True:
 
 			cv2.putText(frame, text, (10, frame.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1) #Draw the text
 	else:
-		motors.move_motors(0, 0, "forward")
+		lastDirection = "none"
+		if lastDirection != "none":
+			lastDirection = "none"
+			motors.move_motors(0, 0, "forward")
 
 	# show the frame
 	cv2.imshow("Frame", frame)    
