@@ -105,7 +105,7 @@ while True:
 					if object_position_percentage < 15:
 						object_position_percentage = 15
 
-					text += " LEFT 0 RIGHT " + object_position_percentage  
+					text += " LEFT 0 RIGHT " + str(object_position_percentage)  
 					# motors.move_motors(0, object_position_percentage)	
 				else:
 					if object_position_percentage < 115:
