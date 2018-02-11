@@ -42,23 +42,27 @@ class Motors:
         except Exception as e:
             print e
 
-    def move_motors(self, motorLeftSpeed, motorRightSpeed, direction):
+    def move_motors(self, motorLeftSpeed, motorRightSpeed):
         print 'Motor left speed ' + str(motorLeftSpeed) + ' Motor right speed ' + str(motorRightSpeed)  
-
-        motorLeftSpeed = abs(motorLeftSpeed)
-        motorRightSpeed = abs(motorRightSpeed)
 
         if motorLeftSpeed == 0:
             self.stop_left()
         else:
             self.PWM_left.ChangeDutyCycle(motorLeftSpeed)
-            self.activate_motor_left_pins(direction)
+            if motorLeftSpeed < 0:
+                self.activate_motor_left_pins('backward')
+            else:
+                self.activate_motor_left_pins('forward')                
 
         if motorRightSpeed == 0:
             self.stop_right()
         else:
             self.PWM_right.ChangeDutyCycle(motorRightSpeed)
-            self.activate_motor_right_pins(direction)
+            if motorRightSpeed < 0:
+                self.activate_motor_right_pins('backward')
+            else:
+                self.activate_motor_right_pins('forward')
+                
 
 
     def stop_left(self):

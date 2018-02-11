@@ -76,24 +76,47 @@ while True:
 			cv2.circle(frame, center, 5, (0, 0, 255), -1)
 
 			# write center coords on the screen
-			text = "Height: " + str(frame.shape[0]) + " Width: " + str(frame.shape[1])
-			text += " X: " +  str(int(x)) + " Y: " + str(int(y))
+			text = " X: " +  str(int(x)) + " Y: " + str(int(y))
 
-			direction = int(x) - width / 2
+			horizontaly_object_position = int(x) - width / 2
 			verticaly_object_position = int(y) - height / 2
 
-			if direction < -width / 4 and lastDirection != "left":
-				text += " Turn left"
-				lastDirection = "left"
-				motors.move_motors(0, 100, "forward")
-			elif direction > width / 4 and lastDirection != "right":
-				text += " Turn right"
-				lastDirection = "right"
-				motors.move_motors(100, 0, "forward")				
-			elif lastDirection != "forward":
-				text += " Forward"
-				lastDirection = "forward"
-				motors.move_motors(100, 100, "forward")	
+			# Object on the right side of the image
+			if horizontaly_object_position > 25 and horizontaly_object_position < width / 2:
+				# Calculate the percentage for right side
+				object_position_percentage = horizontaly_object_position / (width / 2 - 25) * 200
+
+				if object_position_percentage <= 100:
+					if object_position_percentage < 15:
+						object_position_percentage = 15
+
+					text += " LEFT " + str(object_position_percentage) + " RIGHT 0"
+					# motors.move_motors(object_position_percentage, 0)	
+				else:
+					if object_position_percentage < 115:
+						object_position_percentage = 115
+
+					text += " LEFT 100 RIGHT " + str(-(object_position_percentage - 100))
+					# motors.move_motors(100, -(object_position_percentage - 100))	
+			elif horizontaly_object_position < 25 and horizontaly_object_position > -width / 2:
+				object_position_percentage = -horizontaly_object_position / (width / 2 - 25) * 200
+				
+				if object_position_percentage <= 100:
+					if object_position_percentage < 15:
+						object_position_percentage = 15
+
+					text += " LEFT 0 RIGHT " + object_position_percentage  
+					# motors.move_motors(0, object_position_percentage)	
+				else:
+					if object_position_percentage < 115:
+						object_position_percentage = 115
+
+					text += " LEFT " + str(-(object_position_percentage - 100)) + " RIGHT 100"
+					# motors.move_motors(-(object_position_percentage - 100), 100)
+			else:
+				text += "LEFT 30 RIGHT 30"
+				# motors.move_motors(30, 30)
+
 
 			# if verticaly_object_position < -height / 6:
 			# 	if servoDutyCycle < 5:
@@ -120,7 +143,7 @@ while True:
 	else:
 		if lastDirection != "none":
 			lastDirection = "none"
-			motors.move_motors(0, 0, "forward")
+			motors.stop()
 
 	# show the frame
 	cv2.imshow("Frame", frame)    
