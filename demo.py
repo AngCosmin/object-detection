@@ -86,7 +86,7 @@ while True:
 
 				object_position_percentage = horizontaly_object_position / (width / 2) * 100
 
-				text += " PERC " + str(object_position_percentage)
+				text += " PERC " + str(object_position_percentage) + " WIDTH " + str(width);
 
 				if object_position_percentage <= 50:
 					if object_position_percentage < 15:
@@ -100,7 +100,7 @@ while True:
 			elif horizontaly_object_position < 0:
 				object_position_percentage = -horizontaly_object_position / (width / 2) * 100
 
-				text += " PERC " + str(object_position_percentage)				
+				text += " PERC " + str(object_position_percentage) + " WIDTH " + str(width);
 				
 				if object_position_percentage <= 50:
 					if object_position_percentage < 15:
