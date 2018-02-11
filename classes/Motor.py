@@ -50,6 +50,3 @@ class Motor:
         GPIO.output(self.pin1, False)
         GPIO.output(self.pin2, False)
         GPIO.output(self.pin_pwm, False) 
-
-        sleep(1)
-        GPIO.cleanup()

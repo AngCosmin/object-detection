@@ -49,4 +49,5 @@ class MotorsController:
         self.right.clean()
         GPIO.output(self.PIN_RELAY, GPIO.HIGH)
         sleep(1)
+        GPIO.cleanup()        
         print '[PINS] Done!'
