@@ -75,11 +75,11 @@ while True:
 			cv2.circle(frame, (int(x), int(y)), int(radius), (0, 255, 255), 2)
 			cv2.circle(frame, center, 5, (0, 0, 255), -1)
 
-			# write center coords on the screen
-			text = " X: " +  str(int(x)) + " Y: " + str(int(y))
-
 			horizontaly_object_position = int(x) - width / 2
 			verticaly_object_position = int(y) - height / 2
+
+			# write center coords on the screen
+			text = " X: " +  str(int(x)) + " Y: " + str(int(y)) + " OBJPO: " + str(horizontaly_object_position)
 
 			if horizontaly_object_position > 0:
 				# Object on the right side of the image
