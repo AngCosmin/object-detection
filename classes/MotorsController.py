@@ -20,6 +20,7 @@ class MotorsController:
 
             self.PIN_RELAY = config.getint('Relay', 'pin')
 
+            GPIO.setmode(GPIO.BOARD)
             GPIO.setup(self.PIN_RELAY, GPIO.OUT)
             
             self.left = Motor(PIN_1_LEFT, PIN_2_LEFT, PIN_PWM_LEFT)
