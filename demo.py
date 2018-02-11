@@ -86,11 +86,9 @@ while True:
 
 				object_position_percentage = float(horizontaly_object_position) / (width / 2) * 100
 
-				text += " PERC " + str(object_position_percentage) + " WIDTH " + str(width);
-
 				if object_position_percentage <= 50:
-					if object_position_percentage < 15:
-						object_position_percentage = 15
+					if object_position_percentage < 7.5:
+						object_position_percentage = 7.5
 
 					text += " LEFT " + str(object_position_percentage * 2) + " RIGHT 0"
 					# motors.move_motors(object_position_percentage, 0)	
@@ -100,11 +98,9 @@ while True:
 			elif horizontaly_object_position < 0:
 				object_position_percentage = -float(horizontaly_object_position) / (width / 2) * 100
 
-				text += " PERC " + str(object_position_percentage) + " WIDTH " + str(width);
-				
 				if object_position_percentage <= 50:
-					if object_position_percentage < 15:
-						object_position_percentage = 15
+					if object_position_percentage < 7.5:
+						object_position_percentage = 7.5
 
 					text += " LEFT 0 RIGHT " + str(object_position_percentage * 2)  
 					# motors.move_motors(0, object_position_percentage)	
