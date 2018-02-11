@@ -19,19 +19,7 @@ motors.toggleMotors("on")
 direction = -100
 
 try:
-	while True:
-		# if direction < -10:
-		# 	motors.move_motors(0, 35, "forward")
-		# elif direction > 10:
-		# 	motors.move_motors(35, 0, "forward")				
-		# else:
-		# 	motors.move_motors(35, 35, "forward")	
-
-		key = cv2.waitKey(1) & 0xFF
-
-		# if the `q` key was pressed, break from the loop
-		if key == ord("q"):
-			break
+	motors.move_motors(0, 10, "forward")
 except KeyboardInterrupt:
 	motors.cleanup_pins()
 
