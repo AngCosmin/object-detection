@@ -79,12 +79,14 @@ while True:
 			verticaly_object_position = int(y) - height / 2
 
 			# write center coords on the screen
-			text = " X: " +  str(int(x)) + " Y: " + str(int(y)) + " OBJPO: " + str(horizontaly_object_position)
+			text = " X: " +  str(int(x)) + " Y: " + str(int(y)) + " HORIZ: " + str(horizontaly_object_position)
 
 			if horizontaly_object_position > 0:
 				# Object on the right side of the image
 
 				object_position_percentage = horizontaly_object_position / (width / 2) * 100
+
+				text += " PERC " + str(object_position_percentage)
 
 				if object_position_percentage <= 50:
 					if object_position_percentage < 15:
@@ -97,6 +99,8 @@ while True:
 					# motors.move_motors(100, -(object_position_percentage - 100))	
 			elif horizontaly_object_position < 0:
 				object_position_percentage = -horizontaly_object_position / (width / 2) * 100
+
+				text += " PERC " + str(object_position_percentage)				
 				
 				if object_position_percentage <= 50:
 					if object_position_percentage < 15:
