@@ -93,6 +93,9 @@ while True:
 					text += " LEFT " + str(object_position_percentage * 2) + " RIGHT 0"
 					motors.move_motors(object_position_percentage * 2, 0)	
 				else:
+					if object_position_percentage - 50 < 7.5:
+						object_position_percentage = 50 + 7.5
+
 					text += " LEFT 100 RIGHT " + str((object_position_percentage - 50) * 2)
 					motors.move_motors(100, (object_position_percentage - 50) * 2)	
 			elif horizontaly_object_position < -15:
@@ -105,6 +108,9 @@ while True:
 					text += " LEFT 0 RIGHT " + str(object_position_percentage * 2)  
 					motors.move_motors(0, object_position_percentage * 2)	
 				else:
+					if object_position_percentage - 50 < 7.5:
+						object_position_percentage = 50 + 7.5
+						
 					text += " LEFT " + str((object_position_percentage - 50) * 2) + " RIGHT 100"
 					motors.move_motors((object_position_percentage - 50) * 2, 100)
 			else:
