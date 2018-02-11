@@ -34,8 +34,8 @@ motors = Motors()
 motors.toggleMotors("on")
 
 # Servo
-# servo = Servo()
-# servoDutyCycle = 7.5;
+servo = Servo()
+servoDutyCycle = 7.5;
 
 lastDirection = "none"
 
@@ -118,7 +118,6 @@ while True:
 
 			cv2.putText(frame, text, (10, frame.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1) #Draw the text
 	else:
-		lastDirection = "none"
 		if lastDirection != "none":
 			lastDirection = "none"
 			motors.move_motors(0, 0, "forward")
