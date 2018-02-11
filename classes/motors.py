@@ -48,7 +48,7 @@ class Motors:
         if motorLeftSpeed == 0:
             self.stop_left()
         else:
-            self.PWM_left.ChangeDutyCycle(motorLeftSpeed)
+            self.PWM_left.ChangeDutyCycle(abs(motorLeftSpeed))
             if motorLeftSpeed < 0:
                 self.activate_motor_left_pins('backward')
             else:
@@ -57,7 +57,7 @@ class Motors:
         if motorRightSpeed == 0:
             self.stop_right()
         else:
-            self.PWM_right.ChangeDutyCycle(motorRightSpeed)
+            self.PWM_right.ChangeDutyCycle(abs(motorRightSpeed))
             if motorRightSpeed < 0:
                 self.activate_motor_right_pins('backward')
             else:
