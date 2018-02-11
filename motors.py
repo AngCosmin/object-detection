@@ -15,12 +15,9 @@ import cv2
 motors = Motors()
 motors.toggleMotors("on")
 
-# loop over the frames from the video stream
-direction = -100
-
 try:
 	while True:
-		motors.move_motors(0, 100, "forward")
+		motors.move_motors(100, 100, "forward")
 except KeyboardInterrupt:
 	motors.cleanup_pins()
 
