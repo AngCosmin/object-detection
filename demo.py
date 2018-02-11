@@ -85,15 +85,15 @@ while True:
 			if direction < -width / 4 and lastDirection != "left":
 				text += " Turn left"
 				lastDirection = "left"
-				motors.move_motors(0, 20, "forward")
+				motors.move_motors(0, 100, "forward")
 			elif direction > width / 4 and lastDirection != "right":
 				text += " Turn right"
 				lastDirection = "right"
-				motors.move_motors(20, 0, "forward")				
+				motors.move_motors(100, 0, "forward")				
 			elif lastDirection != "forward":
 				text += " Forward"
 				lastDirection = "forward"
-				motors.move_motors(20, 20, "forward")	
+				motors.move_motors(100, 100, "forward")	
 
 			# if verticaly_object_position < -height / 6:
 			# 	if servoDutyCycle < 5:
