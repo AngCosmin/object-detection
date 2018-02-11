@@ -30,7 +30,7 @@ width = 400
 height = 300
 
 # Turn on motors
-motors = Motors()
+motors = MotorsController()
 motors.toggleMotors("on")
 
 # Servo
