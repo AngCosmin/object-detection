@@ -1,127 +1,49 @@
 import ConfigParser
 import RPi.GPIO as GPIO
-import time
+from classes.motor import Motor
+from time import sleep
 
-class Motors:
+class MotorsController:
     def __init__(self):
-        # Get motors pins from config file
         config = ConfigParser.RawConfigParser()
 
         try:
             config.read('./config.cfg')
 
-            self.PIN_1_LEFT = config.getint('MotorLeft', 'pin_1') 
-            self.PIN_2_LEFT = config.getint('MotorLeft', 'pin_2')
-            self.PIN_PWM_LEFT = config.getint('MotorLeft', 'pin_pwm')
+            PIN_1_LEFT = config.getint('MotorLeft', 'pin_1') 
+            PIN_2_LEFT = config.getint('MotorLeft', 'pin_2')
+            PIN_PWM_LEFT = config.getint('MotorLeft', 'pin_pwm')
 
-            self.PIN_1_RIGHT = config.getint('MotorRight', 'pin_1')
-            self.PIN_2_RIGHT = config.getint('MotorRight', 'pin_2')
-            self.PIN_PWM_RIGHT = config.getint('MotorRight', 'pin_pwm')
+            PIN_1_RIGHT = config.getint('MotorRight', 'pin_1')
+            PIN_2_RIGHT = config.getint('MotorRight', 'pin_2')
+            PIN_PWM_RIGHT = config.getint('MotorRight', 'pin_pwm')
 
             self.PIN_RELAY = config.getint('Relay', 'pin')
 
-            # Set GPIO mode
-            GPIO.setmode(GPIO.BOARD)
-
-            # Setup pins
-            GPIO.setup(self.PIN_1_LEFT, GPIO.OUT)
-            GPIO.setup(self.PIN_2_LEFT, GPIO.OUT)
-            GPIO.setup(self.PIN_PWM_LEFT, GPIO.OUT)
-
-            GPIO.setup(self.PIN_1_RIGHT, GPIO.OUT)
-            GPIO.setup(self.PIN_2_RIGHT, GPIO.OUT)
-            GPIO.setup(self.PIN_PWM_RIGHT, GPIO.OUT)
-
-            GPIO.setup(self.PIN_RELAY, GPIO.OUT)
-
-            self.PWM_left = GPIO.PWM(self.PIN_PWM_LEFT, 100)         
-            self.PWM_right = GPIO.PWM(self.PIN_PWM_RIGHT, 100)
-
-            self.PWM_left.start(0);
-            self.PWM_right.start(0);            
+            self.left = Motor(PIN_1_LEFT, PIN_2_LEFT, PIN_PWM_LEFT)
+            self.right = Motor(PIN_1_RIGHT, PIN_2_RIGHT, PIN_PWM_RIGHT)         
         except Exception as e:
             print e
 
-    def move_motors(self, motorLeftSpeed, motorRightSpeed):
-        print 'Motor left speed ' + str(motorLeftSpeed) + ' Motor right speed ' + str(motorRightSpeed)  
-
-        if motorLeftSpeed == 0:
-            self.stop_left()
-        else:
-            self.PWM_left.ChangeDutyCycle(abs(motorLeftSpeed))
-            if motorLeftSpeed < 0:
-                self.activate_motor_left_pins('backward')
-            else:
-                self.activate_motor_left_pins('forward')                
-
-        if motorRightSpeed == 0:
-            self.stop_right()
-        else:
-            self.PWM_right.ChangeDutyCycle(abs(motorRightSpeed))
-            if motorRightSpeed < 0:
-                self.activate_motor_right_pins('backward')
-            else:
-                self.activate_motor_right_pins('forward')
-                
-
-
-    def stop_left(self):
-        GPIO.output(self.PIN_1_LEFT, False)
-        GPIO.output(self.PIN_2_LEFT, False)
-        GPIO.output(self.PIN_PWM_LEFT, False)
-
-    def stop_right(self):
-        GPIO.output(self.PIN_1_RIGHT, False)
-        GPIO.output(self.PIN_2_RIGHT, False)
-        GPIO.output(self.PIN_PWM_RIGHT, False)
-
     def stop(self):
-        self.stop_left()
-        self.stop_right()
+        self.left.stop()
+        self.right.stop()
 
-    def activate_motor_left_pins(self, direction):
-        if direction == 'forward':
-            GPIO.output(self.PIN_1_LEFT, False)
-            GPIO.output(self.PIN_2_LEFT, True)
-            GPIO.output(self.PIN_PWM_LEFT, True)
-        elif direction == 'backward':
-            GPIO.output(self.PIN_1_LEFT, True)
-            GPIO.output(self.PIN_2_LEFT, False)
-            GPIO.output(self.PIN_PWM_LEFT, True) 
-            
-    def activate_motor_right_pins(self, direction):
-        if direction == 'forward':
-            GPIO.output(self.PIN_1_RIGHT, False)
-            GPIO.output(self.PIN_2_RIGHT, True)
-            GPIO.output(self.PIN_PWM_RIGHT, True)
-        elif direction == 'backward':
-            GPIO.output(self.PIN_1_RIGHT, True)
-            GPIO.output(self.PIN_2_RIGHT, False)
-            GPIO.output(self.PIN_PWM_RIGHT, True) 
-    
+    def move_motors(self, left_speed, right_speed):
+        print 'Motor left speed ' + str(left_speed) + ' Motor right speed ' + str(right_speed)  
+        self.left.move(left_speed)
+        self.right.move(right_speed)                
+
     def toggleMotors(self, status):
         if status == 'on': 
             GPIO.output(self.PIN_RELAY, GPIO.LOW)
         else:
             GPIO.output(self.PIN_RELAY, GPIO.HIGH)
 
-    def cleanup_pins(self):
+    def clean(self):
         print '[PINS] Cleaning up pins...'
-        GPIO.setmode(GPIO.BOARD)
-        
-        # Cleanup PINs for motor left
-        GPIO.output(self.PIN_1_LEFT, GPIO.LOW)
-        GPIO.output(self.PIN_2_LEFT, GPIO.LOW)
-        GPIO.output(self.PIN_PWM_LEFT, GPIO.LOW) 
-
-        # Cleanup PINs for motor right
-        GPIO.output(self.PIN_1_RIGHT, GPIO.LOW)
-        GPIO.output(self.PIN_2_RIGHT, GPIO.LOW)
-        GPIO.output(self.PIN_PWM_RIGHT, GPIO.LOW)
-
+        self.left.clean()
+        self.right.clean()
         GPIO.output(self.PIN_RELAY, GPIO.HIGH)
-
-        time.sleep(1)
-        GPIO.cleanup()
+        sleep(1)
         print '[PINS] Done!'
- 

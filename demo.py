@@ -154,6 +154,6 @@ while True:
 		break
  
 # do a bit of cleanup
-motors.cleanup_pins()
+motors.clean()
 cv2.destroyAllWindows()
 vs.stop()
