@@ -115,7 +115,7 @@ while True:
 					motors.move_motors(-(object_position_percentage - 50) * 2, 100)
 			else:
 				text += "LEFT 30 RIGHT 30"
-				motors.move_motors(30, 30)
+				motors.move_motors(100, 100)
 
 
 			if verticaly_object_position < -height / 6:
