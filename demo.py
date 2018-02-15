@@ -28,7 +28,7 @@ greenUpper = (41, 255, 255)
 
 pts = deque(maxlen=args["buffer"])
 
-lastY = 3000
+lastY = 0
 width = 400
 height = 300
 
@@ -124,9 +124,8 @@ while True:
 			# 	motors.move_motors(100, 100)
 
 			if abs(lastY - y) > 30:
-				lastY = y
 				if verticaly_object_position < 0:
-					servoValue = servoValue - abs(y) * 500 / (height / 2)
+					servoValue = servoValue - abs(lastY - y) * 500 / (height / 2)
 					if servoValue > 2000:
 						servoValue = 2000
 
@@ -134,13 +133,14 @@ while True:
 						servoValue = 1000
 					# servo.change(servoValue)
 				else:
-					servoValue = servoValue + abs(y) * 500 / (height / 2)				
+					servoValue = servoValue + abs(lastY - y) * 500 / (height / 2)				
 					if servoValue > 2000:
 						servoValue = 2000
 
 					if servoValue < 1000:
 						servoValue = 1000
 					# servo.change(servoValue)
+				lastY = y
 
 			text += "Servo value: " + str(servoValue) + " Y: " + str(verticaly_object_position)
 
