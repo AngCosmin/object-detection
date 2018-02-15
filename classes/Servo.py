@@ -1,7 +1,6 @@
 import ConfigParser
 import RPi.GPIO as GPIO
 import time
-import pigpio
 
 class Servo:
     def __init__(self):

@@ -5,6 +5,7 @@ from imutils.video import VideoStream
 from collections import deque
 from classes.MotorsController import MotorsController
 from classes.Servo import Servo
+from classes.ServoNew import ServoNew
 from classes.Relay import Relay
 import datetime
 import argparse
@@ -36,8 +37,8 @@ relay = Relay()
 relay.turn_on()
 
 # Servo
-servo = Servo()
-servoDutyCycle = 7.5;
+servo = ServoNew()
+servo.change(1000)
 
 lastDirection = "none"
 
@@ -120,26 +121,26 @@ while True:
 			# 	motors.move_motors(100, 100)
 
 
-			if verticaly_object_position < -height / 6:
-				if servoDutyCycle < 5:
-					servoDutyCycle = 5
-				else:
-					servoDutyCycle -= 0.2
+			# if verticaly_object_position < -height / 6:
+			# 	if servoDutyCycle < 5:
+			# 		servoDutyCycle = 5
+			# 	else:
+			# 		servoDutyCycle -= 0.2
 
-				servo.changeDutyCycle(servoDutyCycle);
+			# 	servo.changeDutyCycle(servoDutyCycle);
 
-				text += " Look up"
-			elif verticaly_object_position > height / 6:
-				if servoDutyCycle > 10:
-					servoDutyCycle = 10
-				else:
-					servoDutyCycle += 0.2
+			# 	text += " Look up"
+			# elif verticaly_object_position > height / 6:
+			# 	if servoDutyCycle > 10:
+			# 		servoDutyCycle = 10
+			# 	else:
+			# 		servoDutyCycle += 0.2
 					
-				servo.changeDutyCycle(servoDutyCycle);
+			# 	servo.changeDutyCycle(servoDutyCycle);
 
-				text += " Look down"
-			else: 
-				text += " Look forward"	
+			# 	text += " Look down"
+			# else: 
+			# 	text += " Look forward"	
 
 			cv2.putText(frame, text, (10, frame.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1) #Draw the text
 	else:
