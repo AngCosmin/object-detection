@@ -2,6 +2,11 @@
 
 import pigpio
 import time
+from classes.MotorsController import MotorsController
+
+# Turn on motors
+motors = MotorsController()
+motors.toggleMotors("on")
 
 pi = pigpio.pi()
 pi.set_mode(4, pigpio.OUTPUT)
