@@ -9,7 +9,7 @@ class ServoNew:
         try:
             config.read('./config.cfg')
 
-            self.PIN = config.getint('Servo', 'pin')
+            self.PIN = config.getint('Servo', 'pin_GPIO')
 
             self.pi = pigpio.pi()
             self.pi.set_mode(self.PIN, pigpio.OUTPUT)
