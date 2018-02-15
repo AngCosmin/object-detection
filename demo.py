@@ -123,14 +123,14 @@ while True:
 
 			if abs(lastY - y) > 30:
 				lastY = y
-				if verticaly_object_position > 0:
-					servoValue = 1500 - int(y) * 500 / (height / 2)
-					servo.change(servoValue)
-					text += " Look up"
+				if verticaly_object_position < 0:
+					servoValue = 1500 + int(y) * 500 / (height / 2)
+					# servo.change(servoValue)
+					text += " Look up Servo value: " + str(servoValue)
 				else:
-					servoValue = 1500 + int(y) * 500 / (height / 2)				
-					servo.change(servoValue)
-					text += " Look down"
+					servoValue = 1500 - int(y) * 500 / (height / 2)				
+					# servo.change(servoValue)
+					text += " Look down Servo value: " + str(servoValue)
 
 
 			cv2.putText(frame, text, (10, frame.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1) #Draw the text
