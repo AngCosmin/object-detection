@@ -38,7 +38,7 @@ relay.turn_on()
 
 # Servo
 servo = ServoNew()
-servo.change(1500)
+servoValue = 1500;
 
 lastDirection = "none"
 
@@ -121,26 +121,26 @@ while True:
 			# 	motors.move_motors(100, 100)
 
 
-			# if verticaly_object_position < -height / 6:
-			# 	if servoDutyCycle < 5:
-			# 		servoDutyCycle = 5
-			# 	else:
-			# 		servoDutyCycle -= 0.2
+			if verticaly_object_position < -height / 6:
+				if servoValue < 1000:
+					servoValue = 1000
+				else:
+					servoValue -= 100
 
-			# 	servo.changeDutyCycle(servoDutyCycle);
+				servo.change(servoValue);
 
-			# 	text += " Look up"
-			# elif verticaly_object_position > height / 6:
-			# 	if servoDutyCycle > 10:
-			# 		servoDutyCycle = 10
-			# 	else:
-			# 		servoDutyCycle += 0.2
+				text += " Look up"
+			elif verticaly_object_position > height / 6:
+				if servoValue > 2000:
+					servoValue = 2000
+				else:
+					servoValue += 100
 					
-			# 	servo.changeDutyCycle(servoDutyCycle);
+				servo.change(servoValue);
 
-			# 	text += " Look down"
-			# else: 
-			# 	text += " Look forward"	
+				text += " Look down"
+			else: 
+				text += " Look forward"	
 
 			cv2.putText(frame, text, (10, frame.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1) #Draw the text
 	else:
