@@ -41,6 +41,7 @@ relay.turn_on()
 # Servo
 servo = ServoNew()
 servoValue = 1500;
+servo.change(servoValue)
 
 lastDirection = "none"
 
