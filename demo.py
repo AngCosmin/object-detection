@@ -122,32 +122,16 @@ while True:
 
 
 			if verticaly_object_position < -height / 6:
-				if servoValue < 1000:
-					newServoValue = 1000
-				else:
-					newServoValue = servoValue - 500
-
-				if servoValue != newServoValue:
-					servoValue = newServoValue;
-					servo.change(servoValue)
+				servo.change(1000)
 
 				text += " Look up"
 			elif verticaly_object_position > height / 6:
-				if servoValue > 2000:
-					newServoValue = 2000
-				else:
-					newServoValue = servoValue + 500
-					
-				if servoValue != newServoValue:
-					servoValue = newServoValue
-					servo.change(servoValue)
+				servo.change(2000)
 
 				text += " Look down"
 			else: 
-				if servoValue != 1500:
-					servoValue = 1500
-					servo.change(servoValue)
-					
+				servo.change(1500)
+
 				text += " Look forward"	
 
 			cv2.putText(frame, text, (10, frame.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1) #Draw the text
