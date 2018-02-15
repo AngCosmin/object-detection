@@ -17,7 +17,7 @@ class ServoNew:
             print e
     
     def change(self, value):
-        print 'Servo to ' + value
+        print 'Servo to ' + str(value)
         self.pi.set_servo_pulsewidth(self.PIN, value)
 
     def clean(self):
