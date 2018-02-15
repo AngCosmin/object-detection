@@ -126,10 +126,10 @@ while True:
 			if abs(lastY - y) > 30:
 				lastY = y
 				if verticaly_object_position < 0:
-					servoValue = 1500 + int(y) * 500 / (height / 2)
+					servoValue = 1500 - int(y) * 500 / (height / 2)
 					# servo.change(servoValue)
 				else:
-					servoValue = 1500 - int(y) * 500 / (height / 2)				
+					servoValue = 1500 + int(y) * 500 / (height / 2)				
 					# servo.change(servoValue)
 
 			text += "Servo value: " + str(servoValue)
