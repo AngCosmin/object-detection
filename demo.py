@@ -136,7 +136,7 @@ while True:
 					if servoValue < 1000:
 						servoValue = 1000
 					
-					# servo.change(servoValue)
+					servo.change(servoValue)
 				else:
 					servoValue = servoValue + abs(lastY - verticaly_object_position) * 1000 / height				
 
@@ -146,7 +146,7 @@ while True:
 					if servoValue < 1000:
 						servoValue = 1000
 
-					# servo.change(servoValue)
+					servo.change(servoValue)
 				lastY = verticaly_object_position
 
 			text += "Servo value: " + str(servoValue) + " Y: " + str(verticaly_object_position)
