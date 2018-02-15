@@ -24,50 +24,46 @@ used = [False]*NUM_GPIO
 pi = pigpio.pi()
 
 if not pi.connected:
-   exit()
+	exit()
 
 if len(sys.argv) == 1:
-   G = [4]
+	G = [4]
 else:
-   G = []
-   for a in sys.argv[1:]:
-      G.append(int(a))
+	G = []
+	for a in sys.argv[1:]:
+		G.append(int(a))
    
 for g in G:
-   used[g] = True
-   step[g] = random.randrange(5, 25)
-   if step[g] % 2 == 0:
-      step[g] = -step[g]
-   width[g] = random.randrange(MIN_WIDTH, MAX_WIDTH+1)
+	used[g] = True
+	step[g] = random.randrange(5, 25)
+	if step[g] % 2 == 0:
+		step[g] = -step[g]
+	width[g] = random.randrange(MIN_WIDTH, MAX_WIDTH+1)
 
 print("Sending servos pulses to GPIO {}, control C to stop.".
-   format(' '.join(str(g) for g in G)))
+	format(' '.join(str(g) for g in G)))
 
 while True:
+	try:
+		for g in G:
 
-   try:
+			pi.set_servo_pulsewidth(g, width[g])
 
-      for g in G:
+			width[g] += step[g]
 
-         pi.set_servo_pulsewidth(g, width[g])
+			if width[g]<MIN_WIDTH or width[g]>MAX_WIDTH:
+				step[g] = -step[g]
+				width[g] += step[g]
 
-         print(g, width[g])
+			time.sleep(0.1)
 
-         width[g] += step[g]
-
-         if width[g]<MIN_WIDTH or width[g]>MAX_WIDTH:
-            step[g] = -step[g]
-            width[g] += step[g]
-
-      time.sleep(0.1)
-
-   except KeyboardInterrupt:
-      break
+	except KeyboardInterrupt:
+		break
 
 print("\nTidying up")
 
 for g in G:
-   pi.set_servo_pulsewidth(g, 0)
+	pi.set_servo_pulsewidth(g, 0)
 
 pi.stop()
 
