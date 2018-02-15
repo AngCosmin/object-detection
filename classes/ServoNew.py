@@ -4,7 +4,6 @@ import pigpio
 
 class ServoNew:
     def __init__(self):
-        # Get motors pins from config file
         config = ConfigParser.RawConfigParser()
 
         try:
@@ -18,5 +17,4 @@ class ServoNew:
             print e
     
     def change(self, value):
-        print("setting to: ", self.pi.set_servo_pulsewidth(self.PIN, value))
-        print("set to: ",self.pi.get_servo_pulsewidth(self.PIN, value))
+        self.pi.set_servo_pulsewidth(self.PIN, value)
