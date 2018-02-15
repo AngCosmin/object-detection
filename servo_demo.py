@@ -28,4 +28,5 @@ print("set to: ",pi.get_servo_pulsewidth(4))
 
 time.sleep(1)
 
+motors.toggleMotors("off")
 pi.stop()

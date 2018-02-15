@@ -4,7 +4,8 @@
 from imutils.video import VideoStream
 from collections import deque
 from classes.MotorsController import MotorsController
-from classes.servo import Servo
+from classes.Servo import Servo
+from classes.Relay import Relay
 import datetime
 import argparse
 import imutils
@@ -31,7 +32,8 @@ height = 300
 
 # Turn on motors
 motors = MotorsController()
-motors.toggleMotors("on")
+relay = Relay()
+relay.turn_on()
 
 # Servo
 servo = Servo()
@@ -118,26 +120,26 @@ while True:
 				motors.move_motors(100, 100)
 
 
-			# if verticaly_object_position < -height / 6:
-			# 	if servoDutyCycle < 5:
-			# 		servoDutyCycle = 5
-			# 	else:
-			# 		servoDutyCycle -= 0.1
+			if verticaly_object_position < -height / 6:
+				if servoDutyCycle < 5:
+					servoDutyCycle = 5
+				else:
+					servoDutyCycle -= 1
 
-			# 	servo.changeDutyCycle(servoDutyCycle);
+				servo.changeDutyCycle(servoDutyCycle);
 
-			# 	text += " Look up"
-			# elif verticaly_object_position > height / 6:
-			# 	if servoDutyCycle > 10:
-			# 		servoDutyCycle = 10
-			# 	else:
-			# 		servoDutyCycle += 0.1
+				text += " Look up"
+			elif verticaly_object_position > height / 6:
+				if servoDutyCycle > 10:
+					servoDutyCycle = 10
+				else:
+					servoDutyCycle += 1
 					
-			# 	servo.changeDutyCycle(servoDutyCycle);
+				servo.changeDutyCycle(servoDutyCycle);
 
-			# 	text += " Look down"
-			# else: 
-			# 	text += " Look forward"	
+				text += " Look down"
+			else: 
+				text += " Look forward"	
 
 			cv2.putText(frame, text, (10, frame.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1) #Draw the text
 	else:
@@ -154,6 +156,7 @@ while True:
 		break
  
 # do a bit of cleanup
+relay.turn_off()
 motors.clean()
 cv2.destroyAllWindows()
 vs.stop()

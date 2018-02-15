@@ -37,12 +37,6 @@ class MotorsController:
         self.left.move(left_speed)
         self.right.move(right_speed)                
 
-    def toggleMotors(self, status):
-        if status == 'on': 
-            GPIO.output(self.PIN_RELAY, GPIO.LOW)
-        else:
-            GPIO.output(self.PIN_RELAY, GPIO.HIGH)
-
     def clean(self):
         print '[PINS] Cleaning up pins...'
         self.left.clean()
