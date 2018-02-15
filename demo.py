@@ -125,11 +125,11 @@ while True:
 				lastY = y
 				if verticaly_object_position < 0:
 					servoValue = 1500 + int(y) * 500 / (height / 2)
-					servo.change(servoValue)
+					# servo.change(servoValue)
 					text += " Look up Servo value: " + str(servoValue)
 				else:
 					servoValue = 1500 - int(y) * 500 / (height / 2)				
-					servo.change(servoValue)
+					# servo.change(servoValue)
 					text += " Look down Servo value: " + str(servoValue)
 
 
