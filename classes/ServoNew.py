@@ -18,7 +18,6 @@ class ServoNew:
     
     def change(self, value):
         print 'Servo to ' + str(value) + ' PIN: ' + str(self.PIN)
-        time.sleep(0.2)
         self.pi.set_servo_pulsewidth(self.PIN, value)
 
     def clean(self):

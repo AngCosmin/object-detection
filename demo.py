@@ -32,8 +32,9 @@ lastY = 3000
 width = 400
 height = 300
 
-# Turn on motors
 motors = MotorsController()
+
+# Turn on motors
 relay = Relay()
 relay.turn_on()
 
