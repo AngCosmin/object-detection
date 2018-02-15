@@ -122,15 +122,27 @@ while True:
 
 
 			if verticaly_object_position < -height / 6:
-				servo.change(1000)
+				if servoValue < 1000:
+					servoValue = 1000
+				else:
+					servoValue -= 200
+
+				servo.change(servoValue)
 
 				text += " Look up"
 			elif verticaly_object_position > height / 6:
-				servo.change(2000)
+				if servoValue < 2000:
+					servoValue = 2000
+				else:
+					servoValue += 200
+
+				servo.change(servoValue)
 
 				text += " Look down"
 			else: 
-				servo.change(1500)
+				if servoValue != 1500:
+					servoValue = 1500
+					servo.change(servoValue)
 
 				text += " Look forward"	
 
