@@ -132,7 +132,7 @@ while True:
 					print 'Servo to ' + str(servoValue) + ' Last Y: ' + str(lastY) + ' Vectical object: ' + str(verticaly_object_position)					
 					servo.change(servoValue)
 				else:
-					servoValue = servoValue + abs(lastY - verticaly_object_position) * 1000 / height				
+					servoValue = servoValue + abs(lastY - verticaly_object_position) * 1000 / height / 2				
 					print 'Servo to ' + str(servoValue) + ' Last Y: ' + str(lastY) + ' Vectical object: ' + str(verticaly_object_position)
 					servo.change(servoValue)
 
