@@ -127,12 +127,22 @@ while True:
 				lastY = y
 				if verticaly_object_position < 0:
 					servoValue = servoValue - int(y) * 500 / (height / 2)
+					if servoValue > 2000:
+						servoValue = 2000
+
+					if servoValue < 1000:
+						servoValue = 1000
 					# servo.change(servoValue)
 				else:
 					servoValue = servoValue + int(y) * 500 / (height / 2)				
+					if servoValue > 2000:
+						servoValue = 2000
+
+					if servoValue < 1000:
+						servoValue = 1000
 					# servo.change(servoValue)
 
-			text += "Servo value: " + str(servoValue)
+			text += "Servo value: " + str(servoValue) + " Y: " + str(verticaly_object_position)
 
 			cv2.putText(frame, text, (10, frame.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1) #Draw the text
 	else:
