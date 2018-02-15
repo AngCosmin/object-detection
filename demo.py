@@ -75,9 +75,6 @@ while True:
 		M = cv2.moments(c)
 		center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
 
-		if lastY == '':
-			lastY = y
-
 		# only proceed if the radius meets a minimum size
 		if radius > 10:
 			# draw the circle and centroid on the frame,
@@ -86,6 +83,9 @@ while True:
 
 			horizontaly_object_position = int(x) - width / 2
 			verticaly_object_position = int(y) - height / 2
+
+			if lastY == '':
+				lastY = verticaly_object_position
 
 			# write center coords on the screen
 			text = " X: " +  str(int(x)) + " Y: " + str(int(y)) + " HORIZ: " + str(horizontaly_object_position)
@@ -126,24 +126,28 @@ while True:
 			# 	text += "LEFT 30 RIGHT 30"
 			# 	motors.move_motors(100, 100)
 
-			if abs(lastY - y) > 30:
-				if verticaly_object_position < 0:
-					servoValue = servoValue - abs(lastY - y) * 500 / (height / 2)
+			if abs(lastY - verticaly_object_position) > 30:
+				if verticaly_object_position - lastY < 0:
+					servoValue = servoValue - abs(lastY - verticaly_object_position) * 1000 / height
+
 					if servoValue > 2000:
 						servoValue = 2000
 
 					if servoValue < 1000:
 						servoValue = 1000
+					
 					# servo.change(servoValue)
 				else:
-					servoValue = servoValue + abs(lastY - y) * 500 / (height / 2)				
+					servoValue = servoValue + abs(lastY - verticaly_object_position) * 1000 / height				
+
 					if servoValue > 2000:
 						servoValue = 2000
 
 					if servoValue < 1000:
 						servoValue = 1000
+
 					# servo.change(servoValue)
-				lastY = y
+				lastY = verticaly_object_position
 
 			text += "Servo value: " + str(servoValue) + " Y: " + str(verticaly_object_position)
 
