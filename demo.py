@@ -28,7 +28,7 @@ greenUpper = (41, 255, 255)
 
 pts = deque(maxlen=args["buffer"])
 
-lastY = 0
+lastY = ''
 width = 400
 height = 300
 
@@ -74,6 +74,9 @@ while True:
 		((x, y), radius) = cv2.minEnclosingCircle(c)
 		M = cv2.moments(c)
 		center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
+
+		if lastY == '':
+			lastY = y
 
 		# only proceed if the radius meets a minimum size
 		if radius > 10:
