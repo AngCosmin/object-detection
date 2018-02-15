@@ -28,6 +28,7 @@ greenUpper = (41, 255, 255)
 
 pts = deque(maxlen=args["buffer"])
 
+lastY = 3000
 width = 400
 height = 300
 
@@ -120,31 +121,15 @@ while True:
 			# 	text += "LEFT 30 RIGHT 30"
 			# 	motors.move_motors(100, 100)
 
-
-			if verticaly_object_position < -height / 6:
-				if servoValue < 1000:
-					servoValue = 1000
+			if abs(lastY - y) > 30:
+				lastY = y
+				if verticaly_object_position < 0:
+					servoValue = 1500 - int(y) * 500 / (height / 2)
+					text += " Look up"
 				else:
-					servoValue -= 200
+					servoValue = 1500 + int(y) * 500 / (height / 2)				
+					text += " Look down"
 
-				servo.change(servoValue)
-
-				text += " Look up"
-			elif verticaly_object_position > height / 6:
-				if servoValue < 2000:
-					servoValue = 2000
-				else:
-					servoValue += 200
-
-				servo.change(servoValue)
-
-				text += " Look down"
-			else: 
-				if servoValue != 1500:
-					servoValue = 1500
-					servo.change(servoValue)
-
-				text += " Look forward"	
 
 			cv2.putText(frame, text, (10, frame.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1) #Draw the text
 	else:
