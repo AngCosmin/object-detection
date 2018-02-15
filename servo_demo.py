@@ -51,7 +51,7 @@ while True:
 
          pi.set_servo_pulsewidth(g, width[g])
 
-         # print(g, width[g])
+         print(g, width[g])
 
          width[g] += step[g]
 
