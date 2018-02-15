@@ -128,7 +128,7 @@ while True:
 
 			if abs(lastY - verticaly_object_position) > 20:
 				if verticaly_object_position - lastY < 0:
-					servoValue = servoValue - abs(lastY - verticaly_object_position) * 1000 / height
+					servoValue = servoValue - abs(lastY - verticaly_object_position) * 1000 / height / 2
 
 					if servoValue > 2000:
 						servoValue = 2000
@@ -138,7 +138,7 @@ while True:
 					
 					servo.change(servoValue)
 				else:
-					servoValue = servoValue + abs(lastY - verticaly_object_position) * 1000 / height				
+					servoValue = servoValue + abs(lastY - verticaly_object_position) * 1000 / height / 2				
 
 					if servoValue > 2000:
 						servoValue = 2000
