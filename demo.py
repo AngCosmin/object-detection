@@ -158,6 +158,8 @@ while True:
  
 # do a bit of cleanup
 relay.turn_off()
+servo.clean()
 motors.clean()
+
 cv2.destroyAllWindows()
 vs.stop()
