@@ -38,7 +38,7 @@ relay.turn_on()
 
 # Servo
 servo = ServoNew()
-servo.change(1000)
+servo.change(1500)
 
 lastDirection = "none"
 
