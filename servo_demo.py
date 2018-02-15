@@ -2,11 +2,11 @@
 
 import pigpio
 import time
-from classes.MotorsController import MotorsController
+from classes.Relay import Relay
 
 # Turn on motors
-motors = MotorsController()
-motors.toggleMotors("on")
+relay = Relay()
+relay.turn_on()
 
 pi = pigpio.pi()
 pi.set_mode(4, pigpio.OUTPUT)
@@ -28,5 +28,5 @@ print("set to: ",pi.get_servo_pulsewidth(4))
 
 time.sleep(1)
 
-motors.toggleMotors("off")
+relay.turn_off()
 pi.stop()
