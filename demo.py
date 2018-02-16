@@ -125,7 +125,7 @@ while True:
 
 			if abs(verticaly_object_position - lastY) > 30:
 				# if verticaly_object_position - lastY < 0:
-				servoValue = servoValue + (verticaly_object_position - lastY) * 1000 / height
+				servoValue = servoValue + (verticaly_object_position - lastY) * 1500 / height / 2
 
 				print '[IF] Servo to ' + str(servoValue) + ' Last Y: ' + str(lastY) + ' Vectical object: ' + str(verticaly_object_position)					
 
