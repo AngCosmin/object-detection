@@ -28,7 +28,7 @@ greenUpper = (41, 255, 255)
 
 pts = deque(maxlen=args["buffer"])
 
-lastY = ''
+lastY = 0
 width = 400
 height = 300
 
@@ -83,9 +83,6 @@ while True:
 
 			horizontaly_object_position = int(x) - width / 2
 			verticaly_object_position = int(y) - height / 2
-
-			if lastY == '':
-				lastY = verticaly_object_position
 
 			# write center coords on the screen
 			text = " X: " +  str(int(x)) + " Y: " + str(int(y)) + " HORIZ: " + str(horizontaly_object_position)
