@@ -143,6 +143,7 @@ while True:
 					if servoValue < 2000:
 						servoValue = 2000
 					servo.change(servoValue)
+				lastY = verticaly_object_position				
 			else:
 				print 'Pozitia trebuie sa se schimbe mai mult'
 
@@ -156,7 +157,6 @@ while True:
 			# 	if servoValue > 2000:
 			# 		servoValue = 2000
 			# 	servo.change(servoValue)
-				lastY = verticaly_object_position
 
 			text += "Servo value: " + str(servoValue) + " Y: " + str(verticaly_object_position)
 
