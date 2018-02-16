@@ -132,10 +132,14 @@ while True:
 					print 'Servo to ' + str(servoValue) + ' Last Y: ' + str(lastY) + ' Vectical object: ' + str(verticaly_object_position)					
 					if servoValue > 1000:
 						servoValue = 1000
+					if servoValue < 2000:
+						servoValue = 2000
 					servo.change(servoValue)
 				else:
 					servoValue = servoValue + abs(verticaly_object_position - lastY) * 1000 / height / 2			
 					print 'Servo to ' + str(servoValue) + ' Last Y: ' + str(lastY) + ' Vectical object: ' + str(verticaly_object_position)
+					if servoValue > 1000:
+						servoValue = 1000
 					if servoValue < 2000:
 						servoValue = 2000
 					servo.change(servoValue)
