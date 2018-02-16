@@ -23,8 +23,8 @@ args = vars(ap.parse_args())
 vs = VideoStream(usePiCamera=args["picamera"] > 0).start()
 time.sleep(1.0)
 
-greenLower = (10, 100, 100)
-greenUpper = (0, 255, 255)
+greenLower = (0, 100, 100)
+greenUpper = (10, 255, 255)
 
 pts = deque(maxlen=args["buffer"])
 
