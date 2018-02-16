@@ -90,71 +90,73 @@ while True:
 			# write center coords on the screen
 			text = " X: " +  str(int(x)) + " Y: " + str(int(y)) + " HORIZ: " + str(horizontaly_object_position)
 
-			if horizontaly_object_position > 15:
-				# Object on the right side of the image
+			# if horizontaly_object_position > 15:
+			# 	# Object on the right side of the image
 
-				object_position_percentage = float(horizontaly_object_position) / (width / 2) * 100
+			# 	object_position_percentage = float(horizontaly_object_position) / (width / 2) * 100
 
-				if object_position_percentage <= 50:
-					if object_position_percentage < 10:
-						object_position_percentage = 10
+			# 	if object_position_percentage <= 50:
+			# 		if object_position_percentage < 10:
+			# 			object_position_percentage = 10
 
-					text += " LEFT " + str(object_position_percentage * 2) + " RIGHT 0"
-					motors.move_motors(object_position_percentage * 2, 0)	
-				else:
-					if object_position_percentage - 50 < 10:
-						object_position_percentage = 50 + 10
-
-					text += " LEFT 100 RIGHT " + str(-(object_position_percentage - 50) * 2)
-					motors.move_motors(100, -(object_position_percentage - 50) * 2)	
-			elif horizontaly_object_position < -15:
-				object_position_percentage = -float(horizontaly_object_position) / (width / 2) * 100
-
-				if object_position_percentage <= 50:
-					if object_position_percentage < 10:
-						object_position_percentage = 10
-
-					text += " LEFT 0 RIGHT " + str(object_position_percentage * 2)  
-					motors.move_motors(0, object_position_percentage * 2)	
-				else:
-					if object_position_percentage - 50 < 10:
-						object_position_percentage = 50 + 10
-						
-					text += " LEFT " + str(-(object_position_percentage - 50) * 2) + " RIGHT 100"
-					motors.move_motors(-(object_position_percentage - 50) * 2, 100)
-			else:
-				text += "LEFT 30 RIGHT 30"
-				motors.move_motors(100, 100)
-
-			# if abs(lastY - verticaly_object_position) > 20:
-			# 	if verticaly_object_position - lastY < 0:
-			# 		servoValue = servoValue - abs(lastY - verticaly_object_position) * 1000 / height / 2
-			# 		print 'Servo to ' + str(servoValue) + ' Last Y: ' + str(lastY) + ' Vectical object: ' + str(verticaly_object_position)					
-			# 		if servoValue > 1000:
-			# 			servoValue = 1000
-			# 		if servoValue < 2000:
-			# 			servoValue = 2000
-			# 		servo.change(servoValue)
+			# 		text += " LEFT " + str(object_position_percentage * 2) + " RIGHT 0"
+			# 		motors.move_motors(object_position_percentage * 2, 0)	
 			# 	else:
-			# 		servoValue = servoValue + abs(verticaly_object_position - lastY) * 1000 / height / 2			
-			# 		print 'Servo to ' + str(servoValue) + ' Last Y: ' + str(lastY) + ' Vectical object: ' + str(verticaly_object_position)
-			# 		if servoValue > 1000:
-			# 			servoValue = 1000
-			# 		if servoValue < 2000:
-			# 			servoValue = 2000
-			# 		servo.change(servoValue)
-			# 	lastY = verticaly_object_position				
+			# 		if object_position_percentage - 50 < 10:
+			# 			object_position_percentage = 50 + 10
 
-			if verticaly_object_position < -50: 
-				servoValue -= 25
-				if servoValue < 1000:
-					servoValue = 1000
-				servo.change(servoValue)
-			elif verticaly_object_position > 50:
-				servoValue += 25
-				if servoValue > 2000:
-					servoValue = 2000
-				servo.change(servoValue)
+			# 		text += " LEFT 100 RIGHT " + str(-(object_position_percentage - 50) * 2)
+			# 		motors.move_motors(100, -(object_position_percentage - 50) * 2)	
+			# elif horizontaly_object_position < -15:
+			# 	object_position_percentage = -float(horizontaly_object_position) / (width / 2) * 100
+
+			# 	if object_position_percentage <= 50:
+			# 		if object_position_percentage < 10:
+			# 			object_position_percentage = 10
+
+			# 		text += " LEFT 0 RIGHT " + str(object_position_percentage * 2)  
+			# 		motors.move_motors(0, object_position_percentage * 2)	
+			# 	else:
+			# 		if object_position_percentage - 50 < 10:
+			# 			object_position_percentage = 50 + 10
+						
+			# 		text += " LEFT " + str(-(object_position_percentage - 50) * 2) + " RIGHT 100"
+			# 		motors.move_motors(-(object_position_percentage - 50) * 2, 100)
+			# else:
+			# 	text += "LEFT 30 RIGHT 30"
+			# 	motors.move_motors(100, 100)
+
+			if abs(lastY - verticaly_object_position) > 20:
+				if verticaly_object_position - lastY < 0:
+					servoValue = servoValue - abs(lastY - verticaly_object_position) * 1000 / height / 2
+					print 'Servo to ' + str(servoValue) + ' Last Y: ' + str(lastY) + ' Vectical object: ' + str(verticaly_object_position)					
+					if servoValue > 1000:
+						servoValue = 1000
+					if servoValue < 2000:
+						servoValue = 2000
+					servo.change(servoValue)
+				else:
+					servoValue = servoValue + abs(verticaly_object_position - lastY) * 1000 / height / 2			
+					print 'Servo to ' + str(servoValue) + ' Last Y: ' + str(lastY) + ' Vectical object: ' + str(verticaly_object_position)
+					if servoValue > 1000:
+						servoValue = 1000
+					if servoValue < 2000:
+						servoValue = 2000
+					servo.change(servoValue)
+				lastY = verticaly_object_position	
+
+			print 'VOP: ' + str(verticaly_object_position)			
+
+			# if verticaly_object_position < -50: 
+			# 	servoValue -= 25
+			# 	if servoValue < 1000:
+			# 		servoValue = 1000
+			# 	servo.change(servoValue)
+			# elif verticaly_object_position > 50:
+			# 	servoValue += 25
+			# 	if servoValue > 2000:
+			# 		servoValue = 2000
+			# 	servo.change(servoValue)
 
 			text += "Servo value: " + str(servoValue) + " Y: " + str(verticaly_object_position)
 
