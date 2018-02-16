@@ -127,18 +127,18 @@ while True:
 			# 	motors.move_motors(100, 100)
 
 			if abs(verticaly_object_position - lastY) > 30:
-				if verticaly_object_position - lastY < 0:
-					servoValue = servoValue - abs(verticaly_object_position - lastY) * 2000 / height / 2
+				# if verticaly_object_position - lastY < 0:
+					servoValue = servoValue + (verticaly_object_position - lastY) * 1000 / height / 2
 
 					print '[IF] Servo to ' + str(servoValue) + ' Last Y: ' + str(lastY) + ' Vectical object: ' + str(verticaly_object_position)					
 
 					servo.change(servoValue)
-				else:
-					servoValue = servoValue + abs(verticaly_object_position - lastY) * 2000 / height / 2
+				# else:
+				# 	servoValue = servoValue + abs(verticaly_object_position - lastY) * 1000 / height / 2
 
-					print '[ELSE] Servo to ' + str(servoValue) + ' Last Y: ' + str(lastY) + ' Vectical object: ' + str(verticaly_object_position)
+				# 	print '[ELSE] Servo to ' + str(servoValue) + ' Last Y: ' + str(lastY) + ' Vectical object: ' + str(verticaly_object_position)
 
-					servo.change(servoValue)
+				# 	servo.change(servoValue)
 				lastY = verticaly_object_position						
 
 			# if verticaly_object_position < -50: 
