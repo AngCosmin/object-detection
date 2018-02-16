@@ -146,8 +146,6 @@ while True:
 				servo.change(servoValue)
 				lastY = verticaly_object_position						
 
-			print 'VOP: ' + str(verticaly_object_position)			
-
 			# if verticaly_object_position < -50: 
 			# 	servoValue -= 25
 			# 	if servoValue < 1000:
