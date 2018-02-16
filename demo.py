@@ -23,8 +23,8 @@ args = vars(ap.parse_args())
 vs = VideoStream(usePiCamera=args["picamera"] > 0).start()
 time.sleep(1.0)
 
-greenLower = (62, 100, 100)
-greenUpper = (82, 255, 255)
+greenLower = (40, 70, 70)
+greenUpper = (80, 255, 255)
 
 pts = deque(maxlen=args["buffer"])
 
@@ -57,6 +57,7 @@ while True:
 	# blobs left in the mask
 	hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 	mask = cv2.inRange(hsv, greenLower, greenUpper)
+	mask = cv2.GaussianBlur(mask, (5,5),0)
 	mask = cv2.erode(mask, None, iterations=2)
 	mask = cv2.dilate(mask, None, iterations=2)
 
