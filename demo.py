@@ -135,6 +135,8 @@ while True:
 					servoValue = servoValue + abs(verticaly_object_position - lastY) * 1000 / height / 2			
 					print 'Servo to ' + str(servoValue) + ' Last Y: ' + str(lastY) + ' Vectical object: ' + str(verticaly_object_position)
 					servo.change(servoValue)
+			else:
+				print 'Pozitia trebuie sa se schimbe mai mult'
 
 			# if verticaly_object_position < -50: 
 			# 	servoValue -= 25
