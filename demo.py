@@ -136,13 +136,13 @@ while True:
 			# 		print 'Servo to ' + str(servoValue) + ' Last Y: ' + str(lastY) + ' Vectical object: ' + str(verticaly_object_position)
 			# 		servo.change(servoValue)
 
-			if verticaly_object_position < -100: 
-				servoValue -= 50
+			if verticaly_object_position < -50: 
+				servoValue -= 25
 				if servoValue < 1000:
 					servoValue = 1000
 				servo.change(servoValue)
-			elif verticaly_object_position > 100:
-				servoValue += 50
+			elif verticaly_object_position > 50:
+				servoValue += 25
 				if servoValue > 2000:
 					servoValue = 2000
 				servo.change(servoValue)
