@@ -57,7 +57,7 @@ while True:
 	# blobs left in the mask
 	hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 	mask = cv2.inRange(hsv, greenLower, greenUpper)
-	mask = cv2.erode(mask, None, iterations=4)
+	mask = cv2.erode(mask, None, iterations=6)
 	mask = cv2.dilate(mask, None, iterations=2)
 
 	# find contours in the mask and initialize the current
