@@ -23,7 +23,7 @@ args = vars(ap.parse_args())
 vs = VideoStream(usePiCamera=args["picamera"] > 0).start()
 time.sleep(1.0)
 
-greenLower = (21, 100, 50)
+greenLower = (21, 100, 75)
 greenUpper = (41, 255, 255)
 
 pts = deque(maxlen=args["buffer"])
@@ -57,7 +57,7 @@ while True:
 	# blobs left in the mask
 	hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 	mask = cv2.inRange(hsv, greenLower, greenUpper)
-	mask = cv2.erode(mask, None, iterations=6)
+	mask = cv2.erode(mask, None, iterations=2)
 	mask = cv2.dilate(mask, None, iterations=2)
 
 	# find contours in the mask and initialize the current
