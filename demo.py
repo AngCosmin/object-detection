@@ -126,9 +126,9 @@ while True:
 			# 	text += "LEFT 30 RIGHT 30"
 			# 	motors.move_motors(100, 100)
 
-			if abs(lastY - verticaly_object_position) > 5:
+			if abs(lastY - verticaly_object_position) > 50:
 				if verticaly_object_position - lastY < 0:
-					servoValue = servoValue - abs(lastY - verticaly_object_position) * 1000 / height / 2
+					servoValue = servoValue - abs(lastY - verticaly_object_position) * 1000 / height
 					print 'Servo to ' + str(servoValue) + ' Last Y: ' + str(lastY) + ' Vectical object: ' + str(verticaly_object_position)					
 					servo.change(servoValue)
 				else:
