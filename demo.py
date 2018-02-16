@@ -123,7 +123,7 @@ while True:
 			# 	text += "LEFT 30 RIGHT 30"
 			# 	motors.move_motors(100, 100)
 
-			if abs(verticaly_object_position - lastY) > 50:
+			if abs(verticaly_object_position - lastY) > 5:
 				# if verticaly_object_position - lastY < 0:
 				servoValue = servoValue + (verticaly_object_position - lastY) * 700 / height
 
