@@ -57,7 +57,7 @@ while True:
 	# blobs left in the mask
 	hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 	mask = cv2.inRange(hsv, greenLower, greenUpper)
-	mask = cv2.erode(mask, None, iterations=2)
+	mask = cv2.erode(mask, None, iterations=4)
 	mask = cv2.dilate(mask, None, iterations=2)
 
 	# find contours in the mask and initialize the current
@@ -87,41 +87,41 @@ while True:
 			# write center coords on the screen
 			text = " X: " +  str(int(x)) + " Y: " + str(int(y)) + " HORIZ: " + str(horizontaly_object_position)
 
-			if horizontaly_object_position > 15:
-				# Object on the right side of the image
+			# if horizontaly_object_position > 15:
+			# 	# Object on the right side of the image
 
-				object_position_percentage = float(horizontaly_object_position) / (width / 2) * 100
+			# 	object_position_percentage = float(horizontaly_object_position) / (width / 2) * 100
 
-				if object_position_percentage <= 50:
-					if object_position_percentage < 10:
-						object_position_percentage = 10
+			# 	if object_position_percentage <= 50:
+			# 		if object_position_percentage < 10:
+			# 			object_position_percentage = 10
 
-					text += " LEFT " + str(object_position_percentage * 2) + " RIGHT 0"
-					motors.move_motors(object_position_percentage * 2, 0)	
-				else:
-					if object_position_percentage - 50 < 10:
-						object_position_percentage = 50 + 10
+			# 		text += " LEFT " + str(object_position_percentage * 2) + " RIGHT 0"
+			# 		motors.move_motors(object_position_percentage * 2, 0)	
+			# 	else:
+			# 		if object_position_percentage - 50 < 10:
+			# 			object_position_percentage = 50 + 10
 
-					text += " LEFT 100 RIGHT " + str(-(object_position_percentage - 50) * 2)
-					motors.move_motors(100, -(object_position_percentage - 50) * 2)	
-			elif horizontaly_object_position < -15:
-				object_position_percentage = -float(horizontaly_object_position) / (width / 2) * 100
+			# 		text += " LEFT 100 RIGHT " + str(-(object_position_percentage - 50) * 2)
+			# 		motors.move_motors(100, -(object_position_percentage - 50) * 2)	
+			# elif horizontaly_object_position < -15:
+			# 	object_position_percentage = -float(horizontaly_object_position) / (width / 2) * 100
 
-				if object_position_percentage <= 50:
-					if object_position_percentage < 10:
-						object_position_percentage = 10
+			# 	if object_position_percentage <= 50:
+			# 		if object_position_percentage < 10:
+			# 			object_position_percentage = 10
 
-					text += " LEFT 0 RIGHT " + str(object_position_percentage * 2)  
-					motors.move_motors(0, object_position_percentage * 2)	
-				else:
-					if object_position_percentage - 50 < 10:
-						object_position_percentage = 50 + 10
+			# 		text += " LEFT 0 RIGHT " + str(object_position_percentage * 2)  
+			# 		motors.move_motors(0, object_position_percentage * 2)	
+			# 	else:
+			# 		if object_position_percentage - 50 < 10:
+			# 			object_position_percentage = 50 + 10
 						
-					text += " LEFT " + str(-(object_position_percentage - 50) * 2) + " RIGHT 100"
-					motors.move_motors(-(object_position_percentage - 50) * 2, 100)
-			else:
-				text += "LEFT 30 RIGHT 30"
-				motors.move_motors(100, 100)
+			# 		text += " LEFT " + str(-(object_position_percentage - 50) * 2) + " RIGHT 100"
+			# 		motors.move_motors(-(object_position_percentage - 50) * 2, 100)
+			# else:
+			# 	text += "LEFT 30 RIGHT 30"
+			# 	motors.move_motors(100, 100)
 
 			if abs(verticaly_object_position - lastY) > 30:
 				# if verticaly_object_position - lastY < 0:
