@@ -1,154 +1,109 @@
-#!/usr/bin/env python
+# python dynamic_color_tracking.py --filter HSV --webcam
 
-# import the necessary packages
-from imutils.video import VideoStream
-import numpy as np
-import imutils
 import cv2
 import argparse
+import numpy as np
+from imutils.video import VideoStream
 
-# initialize the list of reference points and boolean indicating
-# whether cropping is being performed or not
-x_start, y_start, x_end, y_end = 0, 0, 0, 0
-cropping = False
-getROI = False
-refPt = []
-lower = np.array([])
-upper = np.array([])
-
-ap = argparse.ArgumentParser()
-ap.add_argument("-p", "--picamera", type=int, default=-1, help="whether or not the Raspberry Pi camera should be used")
-ap.add_argument("-b", "--buffer", type=int, default=64, help="max buffer size")
-args = vars(ap.parse_args())
-
-camera = VideoStream(usePiCamera=args["picamera"] > 0).start()
-
-def click_and_crop(event, x, y, flags, param):
-    # grab references to the global variables
-    global x_start, y_start, x_end, y_end, cropping, getROI
-
-    # if the left mouse button was clicked, record the starting
-    # (x, y) coordinates and indicate that cropping is being
-    # performed
-    if event == cv2.EVENT_LBUTTONDOWN:
-        x_start, y_start, x_end, y_end = x, y, x, y
-        cropping = True
-
-    elif event == cv2.EVENT_MOUSEMOVE:
-        if cropping == True:
-            x_end, y_end = x, y
-
-    # check to see if the left mouse button was released
-    elif event == cv2.EVENT_LBUTTONUP:
-        # record the ending (x, y) coordinates and indicate that
-        # the cropping operation is finished
-        x_end, y_end = x, y
-        cropping = False
-        getROI = True
+def callback(value):
+    pass
 
 
-cv2.namedWindow("image")
-cv2.setMouseCallback("image", click_and_crop)
-    
-# keep looping
-while True:
+def setup_trackbars(range_filter):
+    cv2.namedWindow("Trackbars", 0)
 
-    if not getROI:
+    for i in ["MIN", "MAX"]:
+        v = 0 if i == "MIN" else 255
 
-        while True:
-            # grab the current frame
-            frame = camera.read()
+        for j in range_filter:
+            cv2.createTrackbar("%s_%s" % (j, i), "Trackbars", v, 255, callback)
 
-            if not cropping and not getROI:
-                cv2.imshow("image", frame)
 
-            elif cropping and not getROI:
-                cv2.rectangle(frame, (x_start, y_start), (x_end, y_end), (0, 255, 0), 2)
-                cv2.imshow("image", frame)
+def get_arguments():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("-p", "--picamera", type=int, default=1, help="whether or not the Raspberry Pi camera should be used")
+    ap.add_argument("-b", "--buffer", type=int, default=64, help="max buffer size")
+    ap.add_argument('-f', '--filter', required=True, help='Range filter. RGB or HSV')
+    args = vars(ap.parse_args())
 
-            elif not cropping and getROI:
-                cv2.rectangle(frame, (x_start, y_start), (x_end, y_end), (0, 255, 0), 2)
-                cv2.imshow("image", frame)
+    if not args['filter'].upper() in ['RGB', 'HSV']:
+        ap.error("Please speciy a correct filter.")
+
+    return args
+
+
+def get_trackbar_values(range_filter):
+    values = []
+
+    for i in ["MIN", "MAX"]:
+        for j in range_filter:
+            v = cv2.getTrackbarPos("%s_%s" % (j, i), "Trackbars")
+            values.append(v)
+    return values
+
+
+def main():
+    args = get_arguments()
+
+    range_filter = args['filter'].upper()
+
+    # camera = cv2.VideoCapture(0)
+    camera = VideoStream(usePiCamera=args["picamera"] > 0).start()
+
+    setup_trackbars(range_filter)
+
+    while True:
+        if args['webcam']:
+            ret, image = camera.read()
+
+            if not ret:
                 break
 
-            key = cv2.waitKey(1) & 0xFF
-            # if the 'q' key is pressed, stop the loop
-            if key == ord("q"):
-            	noROI = True
-                break
+            if range_filter == 'RGB':
+                frame_to_thresh = image.copy()
+            else:
+                frame_to_thresh = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
 
-        # if there are two reference points, then crop the region of interest
-        # from teh image and display it
-        refPt = [(x_start, y_start), (x_end, y_end)]
+        v1_min, v2_min, v3_min, v1_max, v2_max, v3_max = get_trackbar_values(range_filter)
 
-        roi = frame[refPt[0][1]:refPt[1][1], refPt[0][0]:refPt[1][0]]
-        #cv2.imshow("ROI", roi)
+        thresh = cv2.inRange(frame_to_thresh, (v1_min, v2_min, v3_min), (v1_max, v2_max, v3_max))
 
-        hsvRoi = cv2.cvtColor(roi, cv2.COLOR_BGR2HSV)
-        print('min H = {}, min S = {}, min V = {}; max H = {}, max S = {}, max V = {}'.format(hsvRoi[:,:,0].min(), hsvRoi[:,:,1].min(), hsvRoi[:,:,2].min(), hsvRoi[:,:,0].max(), hsvRoi[:,:,1].max(), hsvRoi[:,:,2].max()))
-     
-        lower = np.array([hsvRoi[:,:,0].min(), hsvRoi[:,:,1].min(), hsvRoi[:,:,2].min()])
-        upper = np.array([hsvRoi[:,:,0].max(), hsvRoi[:,:,1].max(), hsvRoi[:,:,2].max()])
+        kernel = np.ones((5,5),np.uint8)
+        mask = cv2.morphologyEx(thresh, cv2.MORPH_OPEN, kernel)
+        mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
 
-
-
-
-
-    # grab the current frame
-    (grabbed, frame) = camera.read()
-
-    if not grabbed:
-        break
-
-    # resize the frame, blur it, and convert it to the HSV
-    # color space
-    #frame = imutils.resize(frame, width=600)
-
-    blurred = cv2.GaussianBlur(frame, (11, 11), 0)
-    hsv = cv2.cvtColor(blurred, cv2.COLOR_BGR2HSV)
-
-    # construct a mask for the color from dictionary`1, then perform
-    # a series of dilations and erosions to remove any small
-    # blobs left in the mask
-    kernel = np.ones((9,9),np.uint8)
-    mask = cv2.inRange(hsv, lower, upper)
-    mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)
-    mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
-            
-    # find contours in the mask and initialize the current
-    # (x, y) center of the ball
-    cnts = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL,
-        cv2.CHAIN_APPROX_SIMPLE)[-2]
-    center = None
-    
-    # only proceed if at least one contour was found
-    if len(cnts) > 0:
-        # find the largest contour in the mask, then use
-        # it to compute the minimum enclosing circle and
-        # centroid
-        c = max(cnts, key=cv2.contourArea)
-        ((x, y), radius) = cv2.minEnclosingCircle(c)
-        M = cv2.moments(c)
-        center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
-    
-        # only proceed if the radius meets a minimum size. Correct this value for your obect's size
-        if radius > 0.5:
-            # draw the circle and centroid on the frame,
-            # then update the list of tracked points
-            cv2.circle(frame, (int(x), int(y)), int(radius), (0, 255, 0), 2)
-            cv2.putText(frame, 'center: {}, {}'.format(int(x), int(y)), (int(x-radius),int(y-radius)), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0,0,255), 2)
-
-     
-    # show the frame to our screen
-    cv2.imshow("image", frame)
-    
-    key = cv2.waitKey(1) & 0xFF
-    # if the 'q' key is pressed, stop the loop
-    if key == ord("q"):
-        break
-    elif key == ord("r"):
-        getROI = False
+        # find contours in the mask and initialize the current
+        # (x, y) center of the ball
+        cnts = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)[-2]
+        center = None
  
-# cleanup the camera and close any open windows
-camera.release()
-cv2.destroyAllWindows()
+        # only proceed if at least one contour was found
+        if len(cnts) > 0:
+            # find the largest contour in the mask, then use
+            # it to compute the minimum enclosing circle and
+            # centroid
+            c = max(cnts, key=cv2.contourArea)
+            ((x, y), radius) = cv2.minEnclosingCircle(c)
+            M = cv2.moments(c)
+            center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
+ 
+            # only proceed if the radius meets a minimum size
+            if radius > 10:
+                # draw the circle and centroid on the frame,
+                # then update the list of tracked points
+                cv2.circle(image, (int(x), int(y)), int(radius),(0, 255, 255), 2)
+                cv2.circle(image, center, 3, (0, 0, 255), -1)
+                cv2.putText(image,"centroid", (center[0]+10,center[1]), cv2.FONT_HERSHEY_SIMPLEX, 0.4,(0, 0, 255),1)
+                cv2.putText(image,"("+str(center[0])+","+str(center[1])+")", (center[0]+10,center[1]+15), cv2.FONT_HERSHEY_SIMPLEX, 0.4,(0, 0, 255),1)
+ 
+        # show the frame to our screen
+        cv2.imshow("Original", image)
+        cv2.imshow("Thresh", thresh)
+        cv2.imshow("Mask", mask)
+
+        if cv2.waitKey(1) & 0xFF is ord('q'):
+            break
+
+
+if __name__ == '__main__':
+    main()
