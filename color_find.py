@@ -50,7 +50,7 @@ def main():
     range_filter = args['filter'].upper()
 
     # camera = cv2.VideoCapture(0)
-    camera = VideoStream(userPiCamera=True).start()
+    camera = VideoStream(usePiCamera=True).start()
 
     setup_trackbars(range_filter)
 
