@@ -162,9 +162,13 @@ try:
 			if time.time() - lastActiveTime > 10:
 				# He stayed for 10 seconds
 
-				motors.move_motors(100, -100)
-				time.sleep(2)
-				lastActiveTime = time.time()
+				movingTime = time.time() + 5
+
+				if movingTime - time.time() > 0:
+					motors.move_motors(100, -100)
+					time.sleep(0.5)
+				else:
+					lastActiveTime = time.time()
 			else:
 				motors.stop()
 
