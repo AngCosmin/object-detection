@@ -54,8 +54,6 @@ if __name__ == "__main__":
 	width, height, colorLower, colorUpper = read_config()
 
 	camera = Camera(colorLower, colorUpper)
-	sleep(0.5)
-
 	motors = MotorsController()
 	relay = RelayController()
 	servo = ServoController()
@@ -64,11 +62,11 @@ if __name__ == "__main__":
 
 	try: 
 		while True:
-			frame, mask, x, y = camera.compute()
+			frame, mask, object_x, object_y = camera.compute()
 
-			if x != sys.maxint and y != sys.maxint:
-				object_x = x - width / 2
-				object_y = y - height / 2
+			if object_x != sys.maxint and object_y != sys.maxint:
+				object_x = object_x - width / 2
+				object_y = object_y - height / 2
 
 				# Update the last active time
 				lastActiveTime = time()
@@ -79,7 +77,7 @@ if __name__ == "__main__":
 				# Activate servo
 				servo.compute(object_y)
 				
-				# cv2.putText(frame, text, (10, frame.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1)
+				camera.set_text(frame, 'Salut')
 			else:
 				# if time.time() - lastActiveTime > 10:
 				# 	# He stayed for 10 seconds

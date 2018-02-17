@@ -57,6 +57,9 @@ class Camera:
 
         return frame, mask, x, y
 
+    def set_text(self, frame, text):
+        cv2.putText(frame, text, (10, frame.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1)        
+
     def clean(self):
         self.camera.stop() 
         cv2.destroyAllWindows()
