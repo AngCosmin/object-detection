@@ -27,12 +27,6 @@ time.sleep(0.5)
 width = 400
 height = 300
 
-motors = MotorsController()
-relay = RelayController()
-servo = ServoController()
-
-relay.start()
-
 # The time when he did last action
 lastActiveTime = 0
 movingTime = None
@@ -46,6 +40,12 @@ def clean():
 	GPIO.cleanup()
 
 if __name__ == "__main__":
+	motors = MotorsController()
+	relay = RelayController()
+	servo = ServoController()
+
+	relay.start()
+
 	try: 
 		while True:
 			frame, mask, x, y = camera.compute()
