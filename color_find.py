@@ -56,8 +56,8 @@ def main():
 
     while True:
         if args['picamera']:
-            frame = camera.read()
-            image = imutils.resize(frame, width=400)
+            image = camera.read()
+            image = imutils.resize(image, width=400)
 
             if range_filter == 'RGB':
                 frame_to_thresh = image.copy()
