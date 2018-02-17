@@ -16,8 +16,7 @@ import cv2
  
 # construct the argument parse and parse the arguments
 ap = argparse.ArgumentParser()
-ap.add_argument("-p", "--picamera", type=int, default=-1, help="whether or not the Raspberry Pi camera should be used")
-ap.add_argument("-b", "--buffer", type=int, default=64, help="max buffer size")
+ap.add_argument("-p", "--picamera", type=int, default=1, help="whether or not the Raspberry Pi camera should be used")
 args = vars(ap.parse_args())
  
 # initialize the video stream and allow the cammera sensor to warmup
@@ -69,7 +68,6 @@ try:
 		# find contours in the mask and initialize the current
 		# (x, y) center of the ball
 		cnts = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)[-2]
-		center = None
 
 		# only proceed if at least one contour was found
 		if len(cnts) > 0:
@@ -132,11 +130,17 @@ try:
 				# 	text += "LEFT 30 RIGHT 30"
 				# 	motors.move_motors(100, 100)
 
-				# if abs(verticaly_object_position - lastY) > 30:
-				# 	servoValue = servoValue + (verticaly_object_position - lastY) * 1000 / height
-				# 	print '[IF] Servo to ' + str(servoValue) + ' Last Y: ' + str(lastY) + ' Vectical object: ' + str(verticaly_object_position)					
-				# 	servo.change(servoValue)
-				# 	lastY = verticaly_object_position						
+				if abs(verticaly_object_position - lastY) > 30:
+					servoValue = servoValue + (verticaly_object_position - lastY) * 2
+
+					if servoValue < 1000:
+						servoValue = 1000
+					elif servoValue > 2000:
+						servoValue = 2000
+
+					print '[IF] Servo to ' + str(servoValue) + ' Last Y: ' + str(lastY) + ' Vectical object: ' + str(verticaly_object_position)					
+					servo.change(servoValue)
+					lastY = verticaly_object_position						
 
 
 				text += "Servo value: " + str(servoValue) + " Y: " + str(verticaly_object_position)
