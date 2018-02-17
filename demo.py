@@ -50,16 +50,16 @@ direction = None
 try: 
 	# loop over the frames from the video stream
 	while True:
-		# frame = camera.read()
-		# frame = imutils.resize(frame, width=width)
+		frame = camera.read()
+		frame = imutils.resize(frame, width=width)
 
-		# hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-		# mask = cv2.inRange(hsv, greenLower, greenUpper)
-		# mask = cv2.GaussianBlur(mask, (5,5),0)
-		# mask = cv2.erode(mask, None, iterations=2)
-		# mask = cv2.dilate(mask, None, iterations=2)
+		hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+		mask = cv2.GaussianBlur(hsv, (11,11),0)
+		mask = cv2.inRange(hsv, greenLower, greenUpper)
+		mask = cv2.erode(mask, None, iterations=2)
+		mask = cv2.dilate(mask, None, iterations=2)
 
-		frame, mask = camera.compute(greenLower, greenUpper)
+		# frame, mask = camera.compute(greenLower, greenUpper)
 
 		# find contours in the mask and initialize the current
 		# (x, y) center of the ball
