@@ -38,6 +38,11 @@ class Camera:
             # Dilatate
             mask = cv2.dilate(mask, None, iterations=2)
 
+            mask_copy = mask.copy()
+            
+            if mask_copy == None:
+                print 'Mask none
+
             # Find contour
             contour = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)[-2]
             
