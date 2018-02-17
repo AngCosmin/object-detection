@@ -143,25 +143,26 @@ try:
 
 				cv2.putText(frame, text, (10, frame.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1) #Draw the text
 		else:
-			if time.time() - lastActiveTime > 10:
-				# He stayed for 10 seconds
+			# if time.time() - lastActiveTime > 10:
+			# 	# He stayed for 10 seconds
 
-				if movingTime == None:
-					# How much time to move ( 2 sec )
-					movingTime = time.time() + 2
-					# Choose a random direction to move
-					direction = random.choice(['left', 'right'])
-				else:
-					if movingTime - time.time() > 0:
-						if direction == 'left':
-							# motors.move_motors(-100, 100)
-						else:
-							# motors.move_motors(100, -100)							
-					else:
-						movingTime = None
-						lastActiveTime = time.time()
-			else:
-				motors.stop()
+			# 	if movingTime == None:
+			# 		# How much time to move ( 2 sec )
+			# 		movingTime = time.time() + 2
+			# 		# Choose a random direction to move
+			# 		direction = random.choice(['left', 'right'])
+			# 	else:
+			# 		if movingTime - time.time() > 0:
+			# 			if direction == 'left':
+			# 				motors.move_motors(-100, 100)
+			# 			else:
+			# 				motors.move_motors(100, -100)							
+			# 		else:
+			# 			movingTime = None
+			# 			lastActiveTime = time.time()
+			# else:
+			# 	motors.stop()
+			motors.stop()
 
 		# show the frame
 		cv2.imshow("Frame", frame)    
@@ -173,7 +174,17 @@ try:
 			break
 
 		if key == ord("w"):
-			print 'W'
+			servoValue -= 50
+			if servoValue < 1000:
+				servoValue = 1000
+			servo.change(servoValue)
+		
+		if key == ord("s"):
+			servoValue += 50
+			if servoValue > 2000:
+				servoValue = 2000
+			servo.change(servoValue)
+		
 
 except Exception: 
 	# do a bit of cleanup
