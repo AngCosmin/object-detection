@@ -52,13 +52,21 @@ class Camera:
                     print 'Frame none'
                 if mask == None:
                     print 'Mask none'
+                if x == None:
+                    print 'x none'
+                if y == None:
+                    print 'y none'
 
                 return frame, mask, x, y
         else:
             if frame == None:
                 print 'Frame none'
             if mask == None:
-            print 'Mask none'
+                print 'Mask none'
+            if x == None:
+                print 'x none'
+            if y == None:
+                print 'y none'
 
             return frame, mask, sys.maxint, sys.maxint
 
