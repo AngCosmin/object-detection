@@ -140,7 +140,7 @@ try:
 						servoValue = 2000
 
 					if oldServoValue != servoValue:
-						print '[IF] Servo to ' + str(servoValue) + ' Last Y: ' + str(lastY) + ' Vectical object: ' + str(verticaly_object_position)					
+						print '[IF] Servo to ' + str(servoValue) + ' Vectical object: ' + str(verticaly_object_position)					
 						servo.change(servoValue)
 			
 
