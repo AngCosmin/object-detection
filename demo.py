@@ -53,7 +53,7 @@ try:
 		cnts = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)[-2]
 
 		# only proceed if at least one contour was found
-		if len(cnts) > 5:
+		if len(cnts) > 1:
 			# find the largest contour in the mask, then use
 			# it to compute the minimum enclosing circle and
 			# centroid
