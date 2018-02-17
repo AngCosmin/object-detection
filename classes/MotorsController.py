@@ -1,5 +1,4 @@
 import ConfigParser
-import RPi.GPIO as GPIO
 from classes.Motor import Motor
 from time import sleep
 
@@ -17,11 +16,6 @@ class MotorsController:
             PIN_1_RIGHT = config.getint('MotorRight', 'pin_1')
             PIN_2_RIGHT = config.getint('MotorRight', 'pin_2')
             PIN_PWM_RIGHT = config.getint('MotorRight', 'pin_pwm')
-
-            self.PIN_RELAY = config.getint('Relay', 'pin')
-
-            GPIO.setmode(GPIO.BOARD)
-            GPIO.setup(self.PIN_RELAY, GPIO.OUT)
             
             self.left = Motor(PIN_1_LEFT, PIN_2_LEFT, PIN_PWM_LEFT)
             self.right = Motor(PIN_1_RIGHT, PIN_2_RIGHT, PIN_PWM_RIGHT)         
@@ -41,7 +35,4 @@ class MotorsController:
         print '[PINS] Cleaning up motors pins...'
         self.left.clean()
         self.right.clean()
-        GPIO.output(self.PIN_RELAY, GPIO.HIGH)
         sleep(0.5)
-        GPIO.cleanup()        
-        print '[PINS] Done!'

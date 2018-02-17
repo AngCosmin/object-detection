@@ -9,12 +9,6 @@ class Camera:
         self.camera = VideoStream(usePiCamera=usePiCamera)
         self.camera.start()
 
-    def start(self):
-        return self.camera.start()
-
-    def stop(self):
-        self.camera.stop()
-
     def compute(self):
         frame = self.camera.read()
 
@@ -37,3 +31,7 @@ class Camera:
         mask = cv2.dilate(mask, None, iterations=2)
 
         return frame, mask
+
+    def clean(self):
+        cv2.destroyAllWindows()
+        self.camera.stop()

@@ -1,14 +1,12 @@
 #!/usr/bin/env python
 
-# import the necessary packages
 from imutils.video import VideoStream
 from classes.MotorsController import MotorsController
 from classes.ServoController import ServoController
-from classes.Relay import Relay
+from classes.RelayController import RelayController
 from classes.Camera import Camera
 import datetime
 import argparse
-import imutils
 import time
 import random
 import cv2
@@ -28,13 +26,10 @@ width = 400
 height = 300
 
 motors = MotorsController()
-
-# Turn on motors
-relay = Relay()
-relay.turn_on()
-
-# Servo
+relay = RelayController()
 servo = ServoController()
+
+relay.start()
 
 # The time when he did last action
 lastActiveTime = 0
@@ -148,19 +143,12 @@ try:
 
 except Exception as e: 
 	print e
-	# do a bit of cleanup
-	relay.turn_off()
-	servo.clean()
-	motors.clean()
-
-	cv2.destroyAllWindows()
-	camera.stop()
+	clean()
 finally:
-	# do a bit of cleanup
-	relay.turn_off()
-	servo.clean()
+	clean()
+
+def clean():
 	motors.clean()
-
-	cv2.destroyAllWindows()
-	camera.stop()
-
+	relay.clean()
+	servo.clean()
+	camera.clean()
