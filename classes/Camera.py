@@ -12,6 +12,8 @@ class Camera:
 
     def compute(self):
         try: 
+            frame = None
+            mask = None
             x = sys.maxint
             y = sys.maxint
 
@@ -75,5 +77,6 @@ class Camera:
             print e
 
     def clean(self):
+        self.camera.release()
+        self.camera.stop() 
         cv2.destroyAllWindows()
-        self.camera.stop()
