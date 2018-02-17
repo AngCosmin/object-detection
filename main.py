@@ -71,7 +71,8 @@ if __name__ == "__main__":
 				# Activate servo
 				servo.compute(object_y)
 			else:
-				motors.randomly_activate()
+				print 'afk'
+				# motors.randomly_activate()
 
 			# show the frame
 			cv2.imshow("Frame", frame)    
