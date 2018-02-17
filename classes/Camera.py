@@ -26,3 +26,5 @@ class Camera:
         mask = cv2.GaussianBlur(mask, (5,5),0)
         mask = cv2.erode(mask, None, iterations=2)
         mask = cv2.dilate(mask, None, iterations=2)
+
+        return mask
