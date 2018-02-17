@@ -3,7 +3,7 @@
 # import the necessary packages
 from imutils.video import VideoStream
 from classes.MotorsController import MotorsController
-from classes.Servo import Servo
+from classes.ServoController import ServoController
 from classes.Relay import Relay
 from classes.Camera import Camera
 import datetime
@@ -34,9 +34,7 @@ relay = Relay()
 relay.turn_on()
 
 # Servo
-servo = Servo()
-servoValue = 1500;
-servo.change(servoValue)
+servo = ServoController()
 
 # The time when he did last action
 lastActiveTime = 0
@@ -53,7 +51,7 @@ try:
 		cnts = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)[-2]
 
 		# only proceed if at least one contour was found
-		if len(cnts) > 1:
+		if len(cnts) > 0:
 			# find the largest contour in the mask, then use
 			# it to compute the minimum enclosing circle and
 			# centroid
@@ -63,13 +61,13 @@ try:
 			center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
 
 			# only proceed if the radius meets a minimum size
-			if radius > 10:
+			if radius > 7:
 				# draw the circle and centroid on the frame,
 				cv2.circle(frame, (int(x), int(y)), int(radius), (0, 255, 255), 2)
 				cv2.circle(frame, center, 5, (0, 0, 255), -1)
 
 				horizontaly_object_position = int(x) - width / 2
-				verticaly_object_position = int(y) - height / 2
+				object_y = int(y) - height / 2
 
 				# write center coords on the screen
 				text = " X: " +  str(int(x)) + " Y: " + str(int(y)) + " HORIZ: " + str(horizontaly_object_position)
@@ -113,20 +111,9 @@ try:
 				# 	text += "LEFT 30 RIGHT 30"
 				# 	motors.move_motors(100, 100)
 
-				if abs(verticaly_object_position) > 10:
-					oldServoValue = servoValue
-					servoValue = servoValue + (verticaly_object_position) * 0.75
 
-					if servoValue < 1000:
-						servoValue = 1000
-					elif servoValue > 2000:
-						servoValue = 2000
-
-					if oldServoValue != servoValue:
-						print 'Servo to ' + str(servoValue) + ' Vectical object: ' + str(verticaly_object_position)					
-						servo.change(servoValue)
-			
-				text += "Servo value: " + str(servoValue) + " Y: " + str(verticaly_object_position)
+				servo.compute(object_y)
+				
 				cv2.putText(frame, text, (10, frame.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1) #Draw the text
 		else:
 			# if time.time() - lastActiveTime > 10:
@@ -157,22 +144,7 @@ try:
 		key = cv2.waitKey(1) & 0xFF
 
 		if key == ord("q"):
-			break
-
-		if key == ord("w"):
-			servoValue -= 50
-			if servoValue < 1000:
-				servoValue = 1000
-			servo.change(servoValue)
-			print 'Servo moved to ' + str(servoValue) + ' Object position: ' + str(verticaly_object_position)
-		
-		if key == ord("s"):
-			servoValue += 50
-			if servoValue > 2000:
-				servoValue = 2000
-			servo.change(servoValue)
-			print 'Servo moved to ' + str(servoValue) + ' Object position: ' + str(verticaly_object_position)				
-		
+			break		
 
 except Exception as e: 
 	print e
@@ -191,3 +163,4 @@ finally:
 
 	cv2.destroyAllWindows()
 	camera.stop()
+
