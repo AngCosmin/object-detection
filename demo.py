@@ -44,7 +44,7 @@ servoValue = 1500;
 servo.change(servoValue)
 
 # The time when he did last action
-lastActiveTime = None
+lastActiveTime = 0
 
 # loop over the frames from the video stream
 while True:
