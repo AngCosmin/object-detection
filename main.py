@@ -11,6 +11,7 @@ import argparse
 import time
 import random
 import cv2
+import sys
  
 # construct the argument parse and parse the arguments
 ap = argparse.ArgumentParser()
@@ -52,7 +53,7 @@ if __name__ == "__main__":
 			print str(x) + " " + str(y)
 
 			# only proceed if at least one contour was found
-			if x is not None and y is not None:
+			if x != sys.maxint and y != sys.maxint:
 					horizontaly_object_position = int(x) - width / 2
 					object_y = int(y) - height / 2
 

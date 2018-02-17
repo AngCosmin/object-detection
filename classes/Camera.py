@@ -1,6 +1,7 @@
 from imutils.video import VideoStream
 import imutils
 import cv2
+import sys
 
 class Camera:
     def __init__(self, colorLower, colorUpper, usePiCamera=True):
@@ -49,7 +50,7 @@ class Camera:
 
                 return frame, mask, x, y
         else:
-            return frame, mask, None, None
+            return frame, mask, sys.maxint, sys.maxint
 
     def clean(self):
         cv2.destroyAllWindows()
