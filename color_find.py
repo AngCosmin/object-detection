@@ -49,16 +49,14 @@ def main():
     range_filter = args['filter'].upper()
 
     # camera = cv2.VideoCapture(0)
-    camera = VideoStream()
+    camera = VideoStream(userPiCamera=True).start()
 
     setup_trackbars(range_filter)
 
     while True:
         if args['picamera']:
-            ret, image = camera.read()
-
-            if not ret:
-                break
+            frame = vs.read()
+            image = imutils.resize(frame, width=width)
 
             if range_filter == 'RGB':
                 frame_to_thresh = image.copy()
