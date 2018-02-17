@@ -54,7 +54,7 @@ try:
 		# grab the frame from the threaded video stream and resize it
 		# to have a maximum width of 400 pixels
 		frame = camera.read()
-		frame = imutils.resize(frame, width=width)
+		frame = camera.resize()
 
 		# construct a mask for the color "green", then perform
 		# a series of dilations and erosions to remove any small
@@ -140,13 +140,10 @@ try:
 						servoValue = 2000
 
 					if oldServoValue != servoValue:
-						print '[IF] Servo to ' + str(servoValue) + ' Vectical object: ' + str(verticaly_object_position)					
+						print 'Servo to ' + str(servoValue) + ' Vectical object: ' + str(verticaly_object_position)					
 						servo.change(servoValue)
 			
-
-
 				text += "Servo value: " + str(servoValue) + " Y: " + str(verticaly_object_position)
-
 				cv2.putText(frame, text, (10, frame.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1) #Draw the text
 		else:
 			# if time.time() - lastActiveTime > 10:
