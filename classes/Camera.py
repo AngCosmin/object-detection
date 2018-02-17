@@ -43,10 +43,7 @@ class Camera:
             M = cv2.moments(circle)
             center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
 
-            if x == None:
-                print 'x none'
-            if y == None:
-                print 'y none'
+            print str(x) + " " + str(y)        
 
             if radius > 7:
                 # draw the circle and centroid on the frame,
