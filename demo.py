@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 
 # import the necessary packages
-from imutils.video import VideoStream
+# from imutils.video import VideoStream
 from classes.MotorsController import MotorsController
 from classes.Servo import Servo
 from classes.ServoNew import ServoNew
 from classes.Relay import Relay
+from classes.Camera import Camera
 import datetime
 import argparse
 import imutils
@@ -19,7 +20,8 @@ ap.add_argument("-p", "--picamera", type=int, default=1, help="whether or not th
 args = vars(ap.parse_args())
  
 # initialize the video stream and allow the cammera sensor to warmup
-vs = VideoStream(usePiCamera=args["picamera"] > 0).start()
+# vs = VideoStream(usePiCamera=args["picamera"] > 0).start()
+vs = Camera()
 time.sleep(0.5)
 
 greenLower = (21, 100, 100)
