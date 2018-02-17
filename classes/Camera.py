@@ -33,7 +33,23 @@ class Camera:
         # Find contour
         contour = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)[-2]
         
-        return frame, mask, contour
+        # If contour was found
+        if len(contour) > 0:
+            # find the largest contour in the mask, then use it to compute the minimum enclosing circle and centroid
+
+            circle = max(contour, key=cv2.contourArea)
+            ((x, y), radius) = cv2.minEnclosingCircle(circle)
+            M = cv2.moments(circle)
+            center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
+
+            if radius > 7:
+                # draw the circle and centroid on the frame,
+                cv2.circle(frame, (int(x), int(y)), int(radius), (0, 255, 255), 2)
+                cv2.circle(frame, center, 5, (0, 0, 255), -1)
+
+                return frame, mask, x, y
+        else:
+            return frame, mask, None, None
 
     def clean(self):
         cv2.destroyAllWindows()
