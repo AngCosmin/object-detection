@@ -8,9 +8,6 @@ class Camera:
     def start(self):
         return self.camera.start()
 
-    def read(self):
-        return self.camera.read()
-
     def stop(self):
         self.camera.stop()
 
