@@ -131,7 +131,7 @@ try:
 				# 	motors.move_motors(100, 100)
 
 				if abs(verticaly_object_position) > 50:
-					servoValue = servoValue + (verticaly_object_position) * 2
+					servoValue = servoValue + (verticaly_object_position) * 0.5
 
 					if servoValue < 1000:
 						servoValue = 1000
