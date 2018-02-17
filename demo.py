@@ -130,7 +130,7 @@ try:
 				# 	text += "LEFT 30 RIGHT 30"
 				# 	motors.move_motors(100, 100)
 
-				if abs(verticaly_object_position) > 30:
+				if abs(verticaly_object_position) > 10:
 					servoValue = servoValue + (verticaly_object_position) * 0.5
 
 					if servoValue < 1000:
