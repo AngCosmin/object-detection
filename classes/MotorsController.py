@@ -30,7 +30,42 @@ class MotorsController:
     def move_motors(self, left_speed, right_speed):
         print 'Motor left speed ' + str(left_speed) + ' Motor right speed ' + str(right_speed)  
         self.left.move(left_speed)
-        self.right.move(right_speed)                
+        self.right.move(right_speed)   
+
+    def go_to_object(self, object_x):
+        if object_x > 15:
+        	# Object on the right side of the image
+
+        	object_position_percentage = object_x / (self.image_width / 2) * 100
+
+        	if object_position_percentage <= 50:
+        		if object_position_percentage < 10:
+        			object_position_percentage = 10
+
+        		self.move_motors(object_position_percentage * 2, 0)	
+        	else:
+        		if object_position_percentage - 50 < 10:
+        			object_position_percentage = 50 + 10
+
+        		self.move_motors(100, -(object_position_percentage - 50) * 2)	
+        elif object_x < -15:
+            # Object on the left side of the image
+
+        	object_position_percentage = -object_x / (self.image_width / 2) * 100
+
+        	if object_position_percentage <= 50:
+        		if object_position_percentage < 10:
+        			object_position_percentage = 10
+
+        		self.move_motors(0, object_position_percentage * 2)	
+        	else:
+        		if object_position_percentage - 50 < 10:
+        			object_position_percentage = 50 + 10
+                    
+        		self.move_motors(-(object_position_percentage - 50) * 2, 100)
+        else:
+        	self.move_motors(100, 100)   
+
 
     def clean(self):
         print '[PINS] Cleaning up motors pins...'

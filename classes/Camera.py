@@ -17,7 +17,7 @@ class Camera:
         frame = self.camera.read()
 
         # Resize frame
-        frame = imutils.resize(frame, width=400)
+        frame = imutils.resize(frame, width=800)
 
         # Convert image to HSV
         hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
