@@ -138,9 +138,9 @@ try:
 					print '[IF] Servo to ' + str(servoValue) + ' Last Y: ' + str(lastY) + ' Vectical object: ' + str(verticaly_object_position)					
 					servo.change(servoValue)
 					lastY = verticaly_object_position						
-				elif servoValue < 1300:
+				elif servoValue < 1300 and verticaly_object_position < -140:
 					servoValue -= 20
-				elif servoValue > 1700:
+				elif servoValue > 1700 and verticaly_object_position > 140:
 					servoValue += 20
 
 
