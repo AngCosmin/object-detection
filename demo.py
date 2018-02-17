@@ -11,6 +11,7 @@ import datetime
 import argparse
 import imutils
 import time
+import random
 import cv2
  
 # construct the argument parse and parse the arguments
@@ -162,11 +163,18 @@ try:
 			if time.time() - lastActiveTime > 10:
 				# He stayed for 10 seconds
 
-				movingTime = time.time() + 5
+				# How much time to move ( 2 sec )
+				movingTime = time.time() + 2
+
+				# Choose a random direction to move
+				direction = random.choice(['left', 'right'])
+
+				# if direction == 'left':
+
 
 				if movingTime - time.time() > 0:
 					motors.move_motors(100, -100)
-					time.sleep(0.5)
+					time.sleep(0.25)
 				else:
 					lastActiveTime = time.time()
 			else:
