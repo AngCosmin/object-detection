@@ -5,6 +5,7 @@ import cv2
 class Camera:
     def __init__(self, usePiCamera=True):
         self.camera = VideoStream(usePiCamera=usePiCamera)
+        self.camera.start()
 
     def start(self):
         return self.camera.start()

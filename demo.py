@@ -21,13 +21,12 @@ args = vars(ap.parse_args())
 # initialize the video stream and allow the cammera sensor to warmup
 # vs = VideoStream(usePiCamera=args["picamera"] > 0).start()
 camera = Camera(args["picamera"] == 1)
-camera = camera.start()
+# camera = camera.start()
 time.sleep(0.5)
 
 greenLower = (21, 100, 100)
 greenUpper = (41, 255, 255)
 
-lastY = 0
 width = 400
 height = 300
 
@@ -50,16 +49,16 @@ direction = None
 try: 
 	# loop over the frames from the video stream
 	while True:
-		frame = camera.read()
-		frame = imutils.resize(frame, width=width)
+		# frame = camera.read()
+		# frame = imutils.resize(frame, width=width)
 
-		hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-		mask = cv2.GaussianBlur(hsv, (5, 5),0)
-		mask = cv2.inRange(hsv, greenLower, greenUpper)
-		mask = cv2.erode(mask, None, iterations=2)
-		mask = cv2.dilate(mask, None, iterations=2)
+		# hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+		# mask = cv2.GaussianBlur(hsv, (5, 5),0)
+		# mask = cv2.inRange(hsv, greenLower, greenUpper)
+		# mask = cv2.erode(mask, None, iterations=2)
+		# mask = cv2.dilate(mask, None, iterations=2)
 
-		# frame, mask = camera.compute(greenLower, greenUpper)
+		frame, mask = camera.compute(greenLower, greenUpper)
 
 		# find contours in the mask and initialize the current
 		# (x, y) center of the ball
@@ -187,7 +186,8 @@ try:
 			print 'Servo moved to ' + str(servoValue) + ' Object position: ' + str(verticaly_object_position)				
 		
 
-except Exception: 
+except Exception as e: 
+	print e
 	# do a bit of cleanup
 	relay.turn_off()
 	servo.clean()
