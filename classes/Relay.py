@@ -16,7 +16,9 @@ class Relay:
             print e
         
     def turn_on(self):
+        GPIO.setmode(GPIO.BOARD)        
         GPIO.output(self.PIN_RELAY, GPIO.LOW)
 
     def turn_off(self):
+        GPIO.setmode(GPIO.BOARD)        
         GPIO.output(self.PIN_RELAY, GPIO.HIGH)        
