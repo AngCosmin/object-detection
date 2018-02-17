@@ -71,7 +71,7 @@ if __name__ == "__main__":
 				object_y = y - height / 2
 
 				# Update the last active time
-				lastActiveTime = time.time()
+				lastActiveTime = time()
 
 				# Activate motors
 				# motors.go_to_object(object_x)
