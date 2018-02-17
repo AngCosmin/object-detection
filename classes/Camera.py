@@ -68,7 +68,7 @@ class Camera:
                     print 'y none'
 
                 return frame, mask, sys.maxint, sys.maxint
-        except Exception e:
+        except Exception as e:
             print e
 
     def clean(self):
