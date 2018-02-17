@@ -9,7 +9,7 @@ class Camera:
         return self.camera.read()
 
     def stop(self):
-        return self.camera.stop()
+        self.camera.stop()
 
     def resize(self, frame, width=400):
         return imutils.resize(frame, width=width)
