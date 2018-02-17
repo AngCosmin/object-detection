@@ -39,7 +39,7 @@ movingTime = None
 direction = None
 
 def clean():
-	# motors.clean()
+	motors.clean()
 	relay.clean()
 	servo.clean()
 	camera.clean()

@@ -1,6 +1,7 @@
 import ConfigParser
 from classes.Motor import Motor
 from time import sleep
+import RPi.GPIO as GPIO
 
 class MotorsController:
     def __init__(self):
