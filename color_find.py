@@ -49,13 +49,12 @@ def main():
     range_filter = args['filter'].upper()
 
     # camera = cv2.VideoCapture(0)
-    camera = VideoStream(True).start()
+    camera = VideoStream()
 
     setup_trackbars(range_filter)
 
     while True:
         if args['picamera']:
-            print 'PiCamera'
             ret, image = camera.read()
 
             if not ret:
