@@ -28,7 +28,6 @@ time.sleep(0.5)
 greenLower = (21, 100, 100)
 greenUpper = (41, 255, 255)
 
-lastY = 0
 width = 400
 height = 300
 
@@ -130,17 +129,16 @@ try:
 				# 	text += "LEFT 30 RIGHT 30"
 				# 	motors.move_motors(100, 100)
 
-				if abs(verticaly_object_position) > 10:
+				if abs(verticaly_object_position) > 10 and abs(verticaly_object_position) < 20:
 					servoValue = servoValue + (verticaly_object_position) * 0.75
 
-					if servoValue < 1000:
-						servoValue = 1000
-					elif servoValue > 2000:
-						servoValue = 2000
+					if servoValue < 850:
+						servoValue = 850
+					elif servoValue > 2150:
+						servoValue = 2150
 
-					print '[IF] Servo to ' + str(servoValue) + ' Last Y: ' + str(lastY) + ' Vectical object: ' + str(verticaly_object_position)					
-					servo.change(servoValue)
-					lastY = verticaly_object_position						
+					print '[IF] Servo to ' + str(servoValue) + ' Vectical object: ' + str(verticaly_object_position)					
+					servo.change(servoValue)					
 			
 
 
