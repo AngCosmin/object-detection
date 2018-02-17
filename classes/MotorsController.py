@@ -1,7 +1,9 @@
 import ConfigParser
+import RPi.GPIO as GPIO
 from classes.Motor import Motor
 from time import sleep
-import RPi.GPIO as GPIO
+from time import time
+from random import choice
 
 class MotorsController:
     def __init__(self):
@@ -22,7 +24,12 @@ class MotorsController:
             self.image_width = config.getint('Image', 'width')            
             
             self.left = Motor(PIN_1_LEFT, PIN_2_LEFT, PIN_PWM_LEFT)
-            self.right = Motor(PIN_1_RIGHT, PIN_2_RIGHT, PIN_PWM_RIGHT)         
+            self.right = Motor(PIN_1_RIGHT, PIN_2_RIGHT, PIN_PWM_RIGHT)  
+
+            # The time when he did last action
+            self.lastActiveTime = 0
+            self.movingTime = None
+            self.direction = None       
         except Exception as e:
             print e
 
@@ -69,6 +76,29 @@ class MotorsController:
         else:
         	self.move_motors(100, 100)   
 
+    def randomly_activate(self):
+        if time() - self.lastActiveTime > 10:
+            # He stayed for 10 seconds
+
+            if self.movingTime == None:
+                # How much time to move ( 2 sec )
+                self.movingTime = time() + 2
+                # Choose a random direction to move
+                self.direction = choice(['left', 'right'])
+            else:
+                if self.movingTime - time() > 0:
+                    if self.direction == 'left':
+                        print 'Moving randomly left'
+                        # self.move_motors(-100, 100)
+                    else:
+                        print 'Moving randomly right'                        
+                        # self.move_motors(100, -100)							
+                else:
+                    self.movingTime = None
+                    self.lastActiveTime = time()
+        else:
+            print 'Moving randomly stop'            
+            # self.stop()
 
     def clean(self):
         print '[PINS] Cleaning up motors pins...'

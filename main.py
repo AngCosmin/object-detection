@@ -9,16 +9,10 @@ from time import sleep
 from time import time
 import RPi.GPIO as GPIO
 import ConfigParser
-import random
 import sys
 import cv2
 
-text = ''
 
-# The time when he did last action
-lastActiveTime = 0
-movingTime = None
-direction = None
 
 def read_config():
 	config = ConfigParser.RawConfigParser()
@@ -76,30 +70,8 @@ if __name__ == "__main__":
 
 				# Activate servo
 				servo.compute(object_y)
-				
-				camera.set_text(frame, 'Salut')
 			else:
-				# if time.time() - lastActiveTime > 10:
-				# 	# He stayed for 10 seconds
-
-				# 	if movingTime == None:
-				# 		# How much time to move ( 2 sec )
-				# 		movingTime = time.time() + 2
-				# 		# Choose a random direction to move
-				# 		direction = random.choice(['left', 'right'])
-				# 	else:
-				# 		if movingTime - time.time() > 0:
-				# 			if direction == 'left':
-				# 				motors.move_motors(-100, 100)
-				# 			else:
-				# 				motors.move_motors(100, -100)							
-				# 		else:
-				# 			movingTime = None
-				# 			lastActiveTime = time.time()
-				# else:
-				# 	motors.stop()
-				print 'Can not find something'
-				# motors.stop()
+				
 
 			# show the frame
 			cv2.imshow("Frame", frame)    
