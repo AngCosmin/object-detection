@@ -55,6 +55,7 @@ def main():
 
     while True:
         if args['picamera']:
+            print 'PiCamera'
             ret, image = camera.read()
 
             if not ret:
