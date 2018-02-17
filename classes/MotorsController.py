@@ -17,6 +17,9 @@ class MotorsController:
             PIN_1_RIGHT = config.getint('MotorRight', 'pin_1')
             PIN_2_RIGHT = config.getint('MotorRight', 'pin_2')
             PIN_PWM_RIGHT = config.getint('MotorRight', 'pin_pwm')
+
+            # Get width of the image for function go_to_object
+            self.image_width = config.getint('Image', 'width')            
             
             self.left = Motor(PIN_1_LEFT, PIN_2_LEFT, PIN_PWM_LEFT)
             self.right = Motor(PIN_1_RIGHT, PIN_2_RIGHT, PIN_PWM_RIGHT)         

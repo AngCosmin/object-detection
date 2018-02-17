@@ -5,27 +5,13 @@ from classes.MotorsController import MotorsController
 from classes.ServoController import ServoController
 from classes.RelayController import RelayController
 from classes.Camera import Camera
+from time import sleep
+from time import time
 import RPi.GPIO as GPIO
-import datetime
-import argparse
-import time
+import ConfigParser
 import random
-import cv2
 import sys
- 
-# construct the argument parse and parse the arguments
-ap = argparse.ArgumentParser()
-ap.add_argument("-p", "--picamera", type=int, default=1, help="whether or not the Raspberry Pi camera should be used")
-args = vars(ap.parse_args())
- 
-greenLower = (21, 100, 100)
-greenUpper = (41, 255, 255)
-
-camera = Camera(greenLower, greenUpper, args["picamera"] == 1)
-time.sleep(0.5)
-
-width = 400
-height = 300
+import cv2
 
 text = ''
 
@@ -33,6 +19,29 @@ text = ''
 lastActiveTime = 0
 movingTime = None
 direction = None
+
+def read_config():
+	config = ConfigParser.RawConfigParser()
+
+	try:
+		config.read('./config.cfg')
+		width = config.getint('Image', 'width')
+		height = config.getint('Image', 'height')
+
+		colorLowerH = config.getint('ColorLower', 'H')
+		colorLowerS = config.getint('ColorLower', 'S')
+		colorLowerV = config.getint('ColorLower', 'V')
+
+		colorUpperH = config.getint('ColorUpper', 'H')
+		colorUpperS = config.getint('ColorUpper', 'S')
+		colorUpperV = config.getint('ColorUpper', 'V')
+
+		colorLower = (colorLowerH, colorLowerS, colorLowerV)
+		colorUpper = (colorUpperH, colorUpperS, colorUpperV)
+
+		return width, height, colorLower, colorUpper
+	except Exception as e:
+		print e
 
 def clean():
 	motors.clean()
@@ -42,6 +51,11 @@ def clean():
 	GPIO.cleanup()
 
 if __name__ == "__main__":
+	width, height, colorLower, colorUpper = read_config()
+
+	camera = Camera(colorLower, colorUpper)
+	sleep(0.5)
+
 	motors = MotorsController()
 	relay = RelayController()
 	servo = ServoController()
@@ -65,7 +79,7 @@ if __name__ == "__main__":
 				# Activate servo
 				servo.compute(object_y)
 				
-				cv2.putText(frame, text, (10, frame.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1)
+				# cv2.putText(frame, text, (10, frame.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1)
 			else:
 				# if time.time() - lastActiveTime > 10:
 				# 	# He stayed for 10 seconds
