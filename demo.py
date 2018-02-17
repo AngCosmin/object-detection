@@ -53,17 +53,19 @@ try:
 	while True:
 		# grab the frame from the threaded video stream and resize it
 		# to have a maximum width of 400 pixels
-		frame = camera.read()
-		frame = camera.resize(frame)
+		# frame = camera.read()
+		# frame = imutils.resize(frame, width=width)
 
 		# construct a mask for the color "green", then perform
 		# a series of dilations and erosions to remove any small
 		# blobs left in the mask
-		hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-		mask = cv2.inRange(hsv, greenLower, greenUpper)
-		mask = cv2.GaussianBlur(mask, (5,5),0)
-		mask = cv2.erode(mask, None, iterations=2)
-		mask = cv2.dilate(mask, None, iterations=2)
+		# hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+		# mask = cv2.inRange(hsv, greenLower, greenUpper)
+		# mask = cv2.GaussianBlur(mask, (5,5),0)
+		# mask = cv2.erode(mask, None, iterations=2)
+		# mask = cv2.dilate(mask, None, iterations=2)
+
+		mask = camera.compute(greenLower, greenUpper)
 
 		# find contours in the mask and initialize the current
 		# (x, y) center of the ball
