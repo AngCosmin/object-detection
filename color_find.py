@@ -57,10 +57,7 @@ while True:
 
         while True:
             # grab the current frame
-            (grabbed, frame) = camera.read()
-
-            if not grabbed:
-                break
+            frame = camera.read()
 
             if not cropping and not getROI:
                 cv2.imshow("image", frame)
