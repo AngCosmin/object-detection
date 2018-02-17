@@ -52,6 +52,13 @@ if __name__ == "__main__":
 
 			print str(x) + " " + str(y)
 
+			if frame == None:
+				print 'Frame none'
+				break
+			if mask == None:
+				print 'Mask none'
+				break
+
 			# only proceed if at least one contour was found
 			if x != sys.maxint and y != sys.maxint:
 					horizontaly_object_position = int(x) - width / 2
