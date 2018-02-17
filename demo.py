@@ -5,6 +5,7 @@ from classes.MotorsController import MotorsController
 from classes.ServoController import ServoController
 from classes.RelayController import RelayController
 from classes.Camera import Camera
+import RPi.GPIO as GPIO
 import datetime
 import argparse
 import time
@@ -41,6 +42,7 @@ def clean():
 	relay.clean()
 	servo.clean()
 	camera.clean()
+	GPIO.cleanup()
 
 if __name__ == "__main__":
 	try: 
