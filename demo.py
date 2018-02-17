@@ -178,12 +178,14 @@ try:
 			if servoValue < 1000:
 				servoValue = 1000
 			servo.change(servoValue)
+			print 'Servo moved to ' + str(servoValue) + ' Object position: ' + str(verticaly_object_position)
 		
 		if key == ord("s"):
 			servoValue += 50
 			if servoValue > 2000:
 				servoValue = 2000
 			servo.change(servoValue)
+			print 'Servo moved to ' + str(servoValue) + ' Object position: ' + str(verticaly_object_position)				
 		
 
 except Exception: 
