@@ -14,6 +14,7 @@ class Camera:
         try: 
             frame = None
             mask = None
+            contour = None
             x = sys.maxint
             y = sys.maxint
 
@@ -40,6 +41,9 @@ class Camera:
             # Find contour
             contour = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)[-2]
             
+            if contour == None:
+                print 'Contour none'
+
             # If contour was found
             if len(contour) > 0:
                 if frame == None:
