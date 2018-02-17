@@ -21,7 +21,8 @@ args = vars(ap.parse_args())
  
 # initialize the video stream and allow the cammera sensor to warmup
 # vs = VideoStream(usePiCamera=args["picamera"] > 0).start()
-vs = Camera()
+camera = Camera()
+vs = camera.start()
 time.sleep(0.5)
 
 greenLower = (21, 100, 100)

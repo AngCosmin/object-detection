@@ -3,8 +3,10 @@ import imutils
 
 class Camera:
     def __init__(self, usePiCamera=True):
-        self.camera = VideoStream(usePiCamera).start()
-        return self.camera
+        self.camera = VideoStream(usePiCamera)
+
+    def start(self):
+        return self.camera.start()
 
     def read(self):
         return self.camera.read()
