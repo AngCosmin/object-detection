@@ -2,7 +2,7 @@ import ConfigParser
 import time
 import pigpio
 
-class ServoNew:
+class Servo:
     def __init__(self):
         config = ConfigParser.RawConfigParser()
 
