@@ -18,14 +18,11 @@ ap = argparse.ArgumentParser()
 ap.add_argument("-p", "--picamera", type=int, default=1, help="whether or not the Raspberry Pi camera should be used")
 args = vars(ap.parse_args())
  
-# initialize the video stream and allow the cammera sensor to warmup
-# vs = VideoStream(usePiCamera=args["picamera"] > 0).start()
-camera = Camera(args["picamera"] == 1)
-# camera = camera.start()
-time.sleep(0.5)
-
 greenLower = (21, 100, 100)
 greenUpper = (41, 255, 255)
+
+camera = Camera(greenLower, greenUpper, args["picamera"] == 1)
+time.sleep(0.5)
 
 width = 400
 height = 300
@@ -49,23 +46,14 @@ direction = None
 try: 
 	# loop over the frames from the video stream
 	while True:
-		# frame = camera.read()
-		# frame = imutils.resize(frame, width=width)
-
-		# hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-		# mask = cv2.GaussianBlur(hsv, (5, 5),0)
-		# mask = cv2.inRange(hsv, greenLower, greenUpper)
-		# mask = cv2.erode(mask, None, iterations=2)
-		# mask = cv2.dilate(mask, None, iterations=2)
-
-		frame, mask = camera.compute(greenLower, greenUpper)
+		frame, mask = camera.compute()
 
 		# find contours in the mask and initialize the current
 		# (x, y) center of the ball
 		cnts = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)[-2]
 
 		# only proceed if at least one contour was found
-		if len(cnts) > 0:
+		if len(cnts) > 5:
 			# find the largest contour in the mask, then use
 			# it to compute the minimum enclosing circle and
 			# centroid
