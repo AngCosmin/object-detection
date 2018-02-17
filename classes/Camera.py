@@ -12,6 +12,9 @@ class Camera:
 
     def compute(self):
         try: 
+            x = sys.maxint
+            y = sys.maxint
+
             frame = self.camera.read()
 
             # Resize frame
@@ -67,7 +70,7 @@ class Camera:
                 if y == None:
                     print 'y none'
 
-                return frame, mask, sys.maxint, sys.maxint
+                return frame, mask, x, y
         except Exception as e:
             print e
 
