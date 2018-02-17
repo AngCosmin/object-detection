@@ -81,7 +81,6 @@ class Camera:
                     if mask == None:
                         print 'Mask none'
 
-                    return frame, mask, x, y
             else:
                 if frame == None:
                     print 'Frame none'
@@ -92,7 +91,7 @@ class Camera:
                 if y == None:
                     print 'y none'
 
-                return frame, mask, x, y
+            return frame, mask, x, y
         except Exception as e:
             print e
 
