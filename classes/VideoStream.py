@@ -1,6 +1,6 @@
 from webcamvideostream import WebcamVideoStream
  
-class VideoStreamTest:
+class VideoStream:
 	def __init__(self, src=0, usePiCamera=True, resolution=(320, 240),
 		framerate=32):
 		# check to see if the picamera module should be used
