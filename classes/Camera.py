@@ -3,8 +3,8 @@ import imutils
 import cv2
 
 class Camera:
-    def __init__(self, piCamera=True):
-        self.camera = VideoStream(usePiCamera=piCamera)
+    def __init__(self, usePiCamera=True):
+        self.camera = VideoStream(usePiCamera=usePiCamera)
 
     def start(self):
         return self.camera.start()
