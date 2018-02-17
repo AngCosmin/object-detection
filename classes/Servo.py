@@ -1,38 +1,23 @@
 import ConfigParser
-import RPi.GPIO as GPIO
 import time
+import pigpio
 
-class Servo:
+class ServoNew:
     def __init__(self):
-        # Get motors pins from config file
         config = ConfigParser.RawConfigParser()
 
         try:
             config.read('./config.cfg')
 
-            self.PIN = config.getint('Servo', 'pin')
+            self.PIN = config.getint('Servo', 'pin_GPIO')
 
-            # Set GPIO mode
-            GPIO.setmode(GPIO.BOARD)
-
-            # Setup pins
-            GPIO.setup(self.PIN, GPIO.OUT)
-
-            self.PWM_servo = GPIO.PWM(self.PIN, 50)         
-
-            self.PWM_servo.start(7.5);
+            self.pi = pigpio.pi()
+            self.pi.set_mode(self.PIN, pigpio.OUTPUT)
         except Exception as e:
             print e
     
-    def changeDutyCycle(self, value):
-        self.PWM_servo.ChangeDutyCycle(value)
+    def change(self, value):
+        self.pi.set_servo_pulsewidth(self.PIN, value)
 
-    def cleanup_pins(self):
-        print '[PINS] Cleaning up pins...'
-        GPIO.setmode(GPIO.BOARD)
-        
-        GPIO.output(self.PIN, GPIO.LOW)
-
-        time.sleep(1)
-        GPIO.cleanup()
-        print '[PINS] Done!'
+    def clean(self):
+        self.pi.stop()

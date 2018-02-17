@@ -12,9 +12,6 @@ class Camera:
     def stop(self):
         self.camera.stop()
 
-    def resize(self, frame, width=400):
-        return imutils.resize(frame, width=width)
-
     def compute(self, greenLower, greenUpper):
         frame = self.camera.read()
 
@@ -27,4 +24,4 @@ class Camera:
         mask = cv2.erode(mask, None, iterations=2)
         mask = cv2.dilate(mask, None, iterations=2)
 
-        return (frame, mask)
+        return frame, mask
