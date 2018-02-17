@@ -12,8 +12,6 @@ import ConfigParser
 import sys
 import cv2
 
-
-
 def read_config():
 	config = ConfigParser.RawConfigParser()
 
@@ -47,6 +45,11 @@ def clean():
 if __name__ == "__main__":
 	width, height, colorLower, colorUpper = read_config()
 
+	print width
+	print height
+	print colorLower
+	print colorUpper
+
 	camera = Camera(colorLower, colorUpper)
 	motors = MotorsController()
 	relay = RelayController()
@@ -56,11 +59,11 @@ if __name__ == "__main__":
 
 	try: 
 		while True:
-			frame, mask, x, y = camera.compute()
+			frame, mask, object_x, object_y = camera.compute()
 
-			if x != sys.maxint and y != sys.maxint:
-				object_x = x - width / 2
-				object_y = y - height / 2
+			if object_x != sys.maxint and object_y != sys.maxint:
+				object_x = object_x - width / 2
+				object_y = object_y - height / 2
 
 				# Update the last active time
 				lastActiveTime = time()
