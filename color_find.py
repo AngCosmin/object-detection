@@ -54,7 +54,7 @@ def main():
     setup_trackbars(range_filter)
 
     while True:
-        if args['webcam']:
+        if args['picamera']:
             ret, image = camera.read()
 
             if not ret:
