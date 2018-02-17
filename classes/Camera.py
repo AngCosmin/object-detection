@@ -1,5 +1,6 @@
 from imutils.video import VideoStream
 import imutils
+import cv2
 
 class Camera:
     def __init__(self, usePiCamera=True):
