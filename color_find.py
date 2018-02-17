@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 # python dynamic_color_tracking.py --filter HSV --webcam
 
 import cv2
@@ -7,7 +9,6 @@ from imutils.video import VideoStream
 
 def callback(value):
     pass
-
 
 def setup_trackbars(range_filter):
     cv2.namedWindow("Trackbars", 0)
