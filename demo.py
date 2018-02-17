@@ -193,7 +193,7 @@ try:
 
 except Exception: 
 	# do a bit of cleanup
-	relay.turn_off()
+	# relay.turn_off()
 	servo.clean()
 	motors.clean()
 
@@ -201,7 +201,7 @@ except Exception:
 	camera.stop()
 finally:
 	# do a bit of cleanup
-	relay.turn_off()
+	# relay.turn_off()
 	servo.clean()
 	motors.clean()
 
