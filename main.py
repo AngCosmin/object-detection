@@ -56,11 +56,11 @@ if __name__ == "__main__":
 
 	try: 
 		while True:
-			frame, mask, object_x, object_y = camera.compute()
+			frame, mask, x, y = camera.compute()
 
-			if object_x != sys.maxint and object_y != sys.maxint:
-				object_x = object_x - width / 2
-				object_y = object_y - height / 2
+			if x != sys.maxint and y != sys.maxint:
+				object_x = x - width / 2
+				object_y = y - height / 2
 
 				# Update the last active time
 				lastActiveTime = time()
@@ -71,8 +71,7 @@ if __name__ == "__main__":
 				# Activate servo
 				servo.compute(object_y)
 			else:
-				print 'afk'
-				# motors.randomly_activate()
+				motors.randomly_activate()
 
 			# show the frame
 			cv2.imshow("Frame", frame)    
