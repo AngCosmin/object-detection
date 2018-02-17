@@ -71,17 +71,10 @@ while True:
 		# find the largest contour in the mask, then use
 		# it to compute the minimum enclosing circle and
 		# centroid
-		
-		# M = cv2.moments(c)
-		# center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
-
 		c = max(cnts, key=cv2.contourArea)
 		((x, y), radius) = cv2.minEnclosingCircle(c)
-		moments = cv2.moments(mask)
-		m00 = moments['m00']
-		center = (-1, 1)
-		if m00 != 0:
-			center = (int(moments['m10']/m00), int(moments['m01']/m00))
+		M = cv2.moments(c)
+		center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
 
 		# only proceed if the radius meets a minimum size
 		if radius > 10:
