@@ -43,6 +43,11 @@ class Camera:
             M = cv2.moments(circle)
             center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
 
+            if x == None:
+                print 'x none'
+            if y == None:
+                print 'y none'
+
             if radius > 7:
                 # draw the circle and centroid on the frame,
                 cv2.circle(frame, (int(x), int(y)), int(radius), (0, 255, 255), 2)
@@ -52,10 +57,6 @@ class Camera:
                     print 'Frame none'
                 if mask == None:
                     print 'Mask none'
-                if x == None:
-                    print 'x none'
-                if y == None:
-                    print 'y none'
 
                 return frame, mask, x, y
         else:
