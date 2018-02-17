@@ -5,6 +5,7 @@
 import cv2
 import argparse
 import numpy as np
+import imutils
 from imutils.video import VideoStream
 
 def callback(value):
@@ -55,8 +56,8 @@ def main():
 
     while True:
         if args['picamera']:
-            frame = vs.read()
-            image = imutils.resize(frame, width=width)
+            frame = camera.read()
+            image = imutils.resize(frame, width=400)
 
             if range_filter == 'RGB':
                 frame_to_thresh = image.copy()
