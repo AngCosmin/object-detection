@@ -128,17 +128,17 @@ try:
 				# 	text += "LEFT 30 RIGHT 30"
 				# 	motors.move_motors(100, 100)
 
-				if abs(verticaly_object_position - lastY) > 30:
-					servoValue = servoValue + (verticaly_object_position - lastY) * 2
+				# if abs(verticaly_object_position - lastY) > 30:
+				# 	servoValue = servoValue + (verticaly_object_position - lastY) * 2
 
-					if servoValue < 1000:
-						servoValue = 1000
-					elif servoValue > 2000:
-						servoValue = 2000
+				# 	if servoValue < 1000:
+				# 		servoValue = 1000
+				# 	elif servoValue > 2000:
+				# 		servoValue = 2000
 
-					print '[IF] Servo to ' + str(servoValue) + ' Last Y: ' + str(lastY) + ' Vectical object: ' + str(verticaly_object_position)					
-					servo.change(servoValue)
-					lastY = verticaly_object_position						
+				# 	print '[IF] Servo to ' + str(servoValue) + ' Last Y: ' + str(lastY) + ' Vectical object: ' + str(verticaly_object_position)					
+				# 	servo.change(servoValue)
+				# 	lastY = verticaly_object_position						
 
 
 				text += "Servo value: " + str(servoValue) + " Y: " + str(verticaly_object_position)
