@@ -27,6 +27,8 @@ time.sleep(0.5)
 width = 400
 height = 300
 
+text = ''
+
 # The time when he did last action
 lastActiveTime = 0
 movingTime = None
@@ -50,58 +52,53 @@ if __name__ == "__main__":
 		while True:
 			frame, mask, x, y = camera.compute()
 
-			print str(x) + " " + str(y)
-
 			# only proceed if at least one contour was found
 			if x != sys.maxint and y != sys.maxint:
-					horizontaly_object_position = int(x) - width / 2
-					object_y = int(y) - height / 2
+				object_x = int(x) - width / 2
+				object_y = int(y) - height / 2
 
-					# write center coords on the screen
-					text = " X: " +  str(int(x)) + " Y: " + str(int(y)) + " HORIZ: " + str(horizontaly_object_position)
+				# update the last active time
+				lastActiveTime = time.time()
 
-					# update the last active time
-					lastActiveTime = time.time()
+				# if object_x > 15:
+				# 	# Object on the right side of the image
 
-					# if horizontaly_object_position > 15:
-					# 	# Object on the right side of the image
+				# 	object_position_percentage = float(object_x) / (width / 2) * 100
 
-					# 	object_position_percentage = float(horizontaly_object_position) / (width / 2) * 100
+				# 	if object_position_percentage <= 50:
+				# 		if object_position_percentage < 10:
+				# 			object_position_percentage = 10
 
-					# 	if object_position_percentage <= 50:
-					# 		if object_position_percentage < 10:
-					# 			object_position_percentage = 10
+				# 		text += " LEFT " + str(object_position_percentage * 2) + " RIGHT 0"
+				# 		motors.move_motors(object_position_percentage * 2, 0)	
+				# 	else:
+				# 		if object_position_percentage - 50 < 10:
+				# 			object_position_percentage = 50 + 10
 
-					# 		text += " LEFT " + str(object_position_percentage * 2) + " RIGHT 0"
-					# 		motors.move_motors(object_position_percentage * 2, 0)	
-					# 	else:
-					# 		if object_position_percentage - 50 < 10:
-					# 			object_position_percentage = 50 + 10
+				# 		text += " LEFT 100 RIGHT " + str(-(object_position_percentage - 50) * 2)
+				# 		motors.move_motors(100, -(object_position_percentage - 50) * 2)	
+				# elif object_x < -15:
+				# 	object_position_percentage = -float(object_x) / (width / 2) * 100
 
-					# 		text += " LEFT 100 RIGHT " + str(-(object_position_percentage - 50) * 2)
-					# 		motors.move_motors(100, -(object_position_percentage - 50) * 2)	
-					# elif horizontaly_object_position < -15:
-					# 	object_position_percentage = -float(horizontaly_object_position) / (width / 2) * 100
+				# 	if object_position_percentage <= 50:
+				# 		if object_position_percentage < 10:
+				# 			object_position_percentage = 10
 
-					# 	if object_position_percentage <= 50:
-					# 		if object_position_percentage < 10:
-					# 			object_position_percentage = 10
+				# 		text += " LEFT 0 RIGHT " + str(object_position_percentage * 2)  
+				# 		motors.move_motors(0, object_position_percentage * 2)	
+				# 	else:
+				# 		if object_position_percentage - 50 < 10:
+				# 			object_position_percentage = 50 + 10
+							
+				# 		text += " LEFT " + str(-(object_position_percentage - 50) * 2) + " RIGHT 100"
+				# 		motors.move_motors(-(object_position_percentage - 50) * 2, 100)
+				# else:
+				# 	text += "LEFT 30 RIGHT 30"
+				# 	motors.move_motors(100, 100)
 
-					# 		text += " LEFT 0 RIGHT " + str(object_position_percentage * 2)  
-					# 		motors.move_motors(0, object_position_percentage * 2)	
-					# 	else:
-					# 		if object_position_percentage - 50 < 10:
-					# 			object_position_percentage = 50 + 10
-								
-					# 		text += " LEFT " + str(-(object_position_percentage - 50) * 2) + " RIGHT 100"
-					# 		motors.move_motors(-(object_position_percentage - 50) * 2, 100)
-					# else:
-					# 	text += "LEFT 30 RIGHT 30"
-					# 	motors.move_motors(100, 100)
-
-					servo.compute(object_y)
-					
-					cv2.putText(frame, text, (10, frame.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1) #Draw the text
+				servo.compute(object_y)
+				
+				cv2.putText(frame, text, (10, frame.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1) #Draw the text
 			else:
 				# if time.time() - lastActiveTime > 10:
 				# 	# He stayed for 10 seconds
