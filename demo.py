@@ -2,11 +2,11 @@
 
 # import the necessary packages
 from imutils.video import VideoStream
-from collections import deque
 from classes.MotorsController import MotorsController
 from classes.Servo import Servo
 from classes.ServoNew import ServoNew
 from classes.Relay import Relay
+from classes.Camera import Camera
 import datetime
 import argparse
 import imutils
@@ -20,8 +20,9 @@ ap.add_argument("-p", "--picamera", type=int, default=1, help="whether or not th
 args = vars(ap.parse_args())
  
 # initialize the video stream and allow the cammera sensor to warmup
-vs = VideoStream(usePiCamera=args["picamera"] > 0).start()
-time.sleep(1.0)
+# vs = VideoStream(usePiCamera=args["picamera"] > 0).start()
+camera = Camera()
+time.sleep(0.5)
 
 greenLower = (21, 100, 100)
 greenUpper = (41, 255, 255)
@@ -51,8 +52,8 @@ try:
 	while True:
 		# grab the frame from the threaded video stream and resize it
 		# to have a maximum width of 400 pixels
-		frame = vs.read()
-		frame = imutils.resize(frame, width=width)
+		frame = camera.read()
+		frame = camera.resize(frame)
 
 		# construct a mask for the color "green", then perform
 		# a series of dilations and erosions to remove any small
@@ -128,17 +129,17 @@ try:
 				# 	text += "LEFT 30 RIGHT 30"
 				# 	motors.move_motors(100, 100)
 
-				# if abs(verticaly_object_position - lastY) > 30:
-				# 	servoValue = servoValue + (verticaly_object_position - lastY) * 2
+				if abs(verticaly_object_position - lastY) > 30:
+					servoValue = servoValue + (verticaly_object_position - lastY) * 1.5
 
-				# 	if servoValue < 1000:
-				# 		servoValue = 1000
-				# 	elif servoValue > 2000:
-				# 		servoValue = 2000
+					if servoValue < 1000:
+						servoValue = 1000
+					elif servoValue > 2000:
+						servoValue = 2000
 
-				# 	print '[IF] Servo to ' + str(servoValue) + ' Last Y: ' + str(lastY) + ' Vectical object: ' + str(verticaly_object_position)					
-				# 	servo.change(servoValue)
-				# 	lastY = verticaly_object_position						
+					print '[IF] Servo to ' + str(servoValue) + ' Last Y: ' + str(lastY) + ' Vectical object: ' + str(verticaly_object_position)					
+					servo.change(servoValue)
+					lastY = verticaly_object_position						
 
 
 				text += "Servo value: " + str(servoValue) + " Y: " + str(verticaly_object_position)
