@@ -198,7 +198,7 @@ except Exception:
 	motors.clean()
 
 	cv2.destroyAllWindows()
-	vs.stop()
+	camera.stop()
 finally:
 	# do a bit of cleanup
 	relay.turn_off()
@@ -206,4 +206,4 @@ finally:
 	motors.clean()
 
 	cv2.destroyAllWindows()
-	vs.stop()
+	camera.stop()
