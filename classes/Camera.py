@@ -77,6 +77,5 @@ class Camera:
             print e
 
     def clean(self):
-        self.camera.release()
         self.camera.stop() 
         cv2.destroyAllWindows()
