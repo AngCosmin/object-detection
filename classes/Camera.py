@@ -30,7 +30,10 @@ class Camera:
         # Dilatate
         mask = cv2.dilate(mask, None, iterations=2)
 
-        return frame, mask
+        # Find contour
+        contour = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)[-2]
+        
+        return frame, mask, contour
 
     def clean(self):
         cv2.destroyAllWindows()

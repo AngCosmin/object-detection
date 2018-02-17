@@ -44,20 +44,15 @@ def clean():
 
 if __name__ == "__main__":
 	try: 
-		# loop over the frames from the video stream
 		while True:
-			frame, mask = camera.compute()
-
-			# find contours in the mask and initialize the current
-			# (x, y) center of the ball
-			cnts = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)[-2]
+			frame, mask, contour = camera.compute()
 
 			# only proceed if at least one contour was found
-			if len(cnts) > 0:
+			if len(contour) > 0:
 				# find the largest contour in the mask, then use
 				# it to compute the minimum enclosing circle and
 				# centroid
-				c = max(cnts, key=cv2.contourArea)
+				c = max(contour, key=cv2.contourArea)
 				((x, y), radius) = cv2.minEnclosingCircle(c)
 				M = cv2.moments(c)
 				center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))

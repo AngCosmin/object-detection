@@ -16,6 +16,10 @@ class ServoController:
             self.head.change(1500)
         except Exception as e:
             print e
+
+    def change(self, value):
+        self.servoValue = value
+        self.head.change(value)
     
     def compute(self, object_y):
         if abs(object_y) > 10:
@@ -28,7 +32,6 @@ class ServoController:
                 self.servoValue = 2000
 
             if oldServoValue != self.servoValue:
-                print 'Servo to ' + str(self.servoValue)					
                 self.head.change(self.servoValue)
 
     def clean(self):
