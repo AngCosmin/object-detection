@@ -42,10 +42,21 @@ class Camera:
             
             # If contour was found
             if len(contour) > 0:
-                # find the largest contour in the mask, then use it to compute the minimum enclosing circle and centroid
+                if frame == None:
+                    print 'Frame none'
+                if mask == None:
+                    print 'Mask none'
+                if x == None:
+                    print 'x none'
+                if y == None:
+                    print 'y none'
 
+                # Find the largest contour in the mask
                 circle = max(contour, key=cv2.contourArea)
+
+                #  Use contour to compute the minimum enclosing circle
                 ((x, y), radius) = cv2.minEnclosingCircle(circle)
+
                 M = cv2.moments(circle)
                 center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
 
