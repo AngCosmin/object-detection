@@ -128,7 +128,7 @@ try:
 				# 	motors.move_motors(100, 100)
 
 				if abs(verticaly_object_position - lastY) > 10:
-					servoValue = servoValue + (verticaly_object_position - lastY) * 3
+					servoValue = servoValue + (verticaly_object_position - lastY) * 1.5
 
 					if servoValue < 1000:
 						servoValue = 1000
@@ -138,6 +138,10 @@ try:
 					print '[IF] Servo to ' + str(servoValue) + ' Last Y: ' + str(lastY) + ' Vectical object: ' + str(verticaly_object_position)					
 					servo.change(servoValue)
 					lastY = verticaly_object_position						
+				elif servoValue < 1300:
+					servoValue -= 20
+				elif servoValue > 1700:
+					servoValue += 20
 
 
 				text += "Servo value: " + str(servoValue) + " Y: " + str(verticaly_object_position)
