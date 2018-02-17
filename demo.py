@@ -47,6 +47,7 @@ servo.change(servoValue)
 # The time when he did last action
 lastActiveTime = 0
 movingTime = None
+direction = None
 
 try: 
 	# loop over the frames from the video stream
@@ -164,15 +165,17 @@ try:
 			if time.time() - lastActiveTime > 10:
 				# He stayed for 10 seconds
 
-				# How much time to move ( 2 sec )
 				if movingTime == None:
+					# How much time to move ( 2 sec )
 					movingTime = time.time() + 2
 					# Choose a random direction to move
-					# direction = random.choice(['left', 'right'])
+					direction = random.choice(['left', 'right'])
 				else:
 					if movingTime - time.time() > 0:
-						motors.move_motors(100, -100)
-						time.sleep(0.25)
+						if direction == 'left':
+							motors.move_motors(-100, 100)
+						else:
+							motors.move_motors(100, -100)							
 					else:
 						movingTime = None
 						lastActiveTime = time.time()
