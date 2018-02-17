@@ -9,7 +9,6 @@ class Motor:
 
         GPIO.setmode(GPIO.BOARD)
 
-        # Setup pins
         GPIO.setup(self.pin1, GPIO.OUT)
         GPIO.setup(self.pin2, GPIO.OUT)
         GPIO.setup(self.pin_pwm, GPIO.OUT) 
