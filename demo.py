@@ -65,7 +65,7 @@ try:
 		# mask = cv2.erode(mask, None, iterations=2)
 		# mask = cv2.dilate(mask, None, iterations=2)
 
-		mask = camera.compute(greenLower, greenUpper)
+		(frame, mask) = camera.compute(greenLower, greenUpper)
 
 		# find contours in the mask and initialize the current
 		# (x, y) center of the ball
