@@ -38,10 +38,10 @@ class MotorsController:
         self.right.move(right_speed)                
 
     def clean(self):
-        print '[PINS] Cleaning up pins...'
+        print '[PINS] Cleaning up motors pins...'
         self.left.clean()
         self.right.clean()
         GPIO.output(self.PIN_RELAY, GPIO.HIGH)
-        sleep(1)
+        sleep(0.5)
         GPIO.cleanup()        
         print '[PINS] Done!'
