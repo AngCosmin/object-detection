@@ -154,9 +154,9 @@ try:
 				else:
 					if movingTime - time.time() > 0:
 						if direction == 'left':
-							motors.move_motors(-100, 100)
+							# motors.move_motors(-100, 100)
 						else:
-							motors.move_motors(100, -100)							
+							# motors.move_motors(100, -100)							
 					else:
 						movingTime = None
 						lastActiveTime = time.time()
