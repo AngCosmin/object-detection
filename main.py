@@ -132,6 +132,7 @@ if __name__ == "__main__":
 			key = cv2.waitKey(1) & 0xFF
 
 			if key == ord("q"):
+				clean()
 				break		
 
 	except Exception as e: 
