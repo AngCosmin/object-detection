@@ -43,7 +43,8 @@ servo = ServoNew()
 servoValue = 1500;
 servo.change(servoValue)
 
-lastDirection = "none"
+# The time when he did last action
+lastActiveTime = None
 
 # loop over the frames from the video stream
 while True:
@@ -87,6 +88,9 @@ while True:
 
 			# write center coords on the screen
 			text = " X: " +  str(int(x)) + " Y: " + str(int(y)) + " HORIZ: " + str(horizontaly_object_position)
+
+			# update the last active time
+			lastActiveTime = time.time()
 
 			if horizontaly_object_position > 15:
 				# Object on the right side of the image
@@ -154,7 +158,13 @@ while True:
 
 			cv2.putText(frame, text, (10, frame.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1) #Draw the text
 	else:
-		motors.stop()
+		if time.time() - lastActiveTime > 10:
+			# He stayed for 10 seconds
+
+			motors.move_motors(100, -100)
+			lastActiveTime = time.time()
+		else:
+			motors.stop()
 
 	# show the frame
 	cv2.imshow("Frame", frame)    
@@ -162,7 +172,6 @@ while True:
 	
 	key = cv2.waitKey(1) & 0xFF
 
-	# if the `q` key was pressed, break from the loop
 	if key == ord("q"):
 		break
  
