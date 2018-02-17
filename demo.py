@@ -162,6 +162,7 @@ while True:
 			# He stayed for 10 seconds
 
 			motors.move_motors(100, -100)
+			time.sleep(0.5)
 			lastActiveTime = time.time()
 		else:
 			motors.stop()
