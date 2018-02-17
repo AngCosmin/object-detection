@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 # import the necessary packages
-# from imutils.video import VideoStream
+from imutils.video import VideoStream
 from classes.MotorsController import MotorsController
 from classes.Servo import Servo
 from classes.ServoNew import ServoNew
