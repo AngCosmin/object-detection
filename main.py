@@ -49,6 +49,8 @@ if __name__ == "__main__":
 		while True:
 			frame, mask, x, y = camera.compute()
 
+			print str(x) + " " + str(y)
+
 			# only proceed if at least one contour was found
 			if x is not None and y is not None:
 					horizontaly_object_position = int(x) - width / 2
@@ -120,7 +122,7 @@ if __name__ == "__main__":
 				# else:
 				# 	motors.stop()
 				print 'Can not find something'
-				motors.stop()
+				# motors.stop()
 
 			# show the frame
 			cv2.imshow("Frame", frame)    
