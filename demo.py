@@ -54,7 +54,7 @@ try:
 		# grab the frame from the threaded video stream and resize it
 		# to have a maximum width of 400 pixels
 		frame = camera.read()
-		frame = imutils.resize(frame, width=width)
+		frame = camera.resize(frame)
 
 		# construct a mask for the color "green", then perform
 		# a series of dilations and erosions to remove any small
