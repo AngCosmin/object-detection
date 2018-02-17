@@ -44,9 +44,6 @@ class Motor:
         GPIO.output(self.pin_pwm, False)
 
     def clean(self):
-        GPIO.setmode(GPIO.BOARD)
-        
-        # Cleanup PINs for motor left
         GPIO.output(self.pin1, False)
         GPIO.output(self.pin2, False)
         GPIO.output(self.pin_pwm, False) 
