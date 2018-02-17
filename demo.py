@@ -26,8 +26,6 @@ time.sleep(1.0)
 greenLower = (21, 100, 100)
 greenUpper = (41, 255, 255)
 
-pts = deque(maxlen=args["buffer"])
-
 lastY = 0
 width = 400
 height = 300
