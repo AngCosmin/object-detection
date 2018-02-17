@@ -21,7 +21,8 @@ args = vars(ap.parse_args())
  
 # initialize the video stream and allow the cammera sensor to warmup
 # vs = VideoStream(usePiCamera=args["picamera"] > 0).start()
-camera = Camera()
+camera = Camera(args["picamera"] == 1)
+camera = camera.start()
 time.sleep(0.5)
 
 greenLower = (21, 100, 100)
@@ -52,7 +53,7 @@ try:
 	while True:
 		# grab the frame from the threaded video stream and resize it
 		# to have a maximum width of 400 pixels
-		frame = vs.read()
+		frame = camera.read()
 		frame = imutils.resize(frame, width=width)
 
 		# construct a mask for the color "green", then perform
@@ -129,8 +130,8 @@ try:
 				# 	text += "LEFT 30 RIGHT 30"
 				# 	motors.move_motors(100, 100)
 
-				if abs(verticaly_object_position) > 30:
-					servoValue = servoValue + (verticaly_object_position) * 1.5
+				if abs(verticaly_object_position) > 50:
+					servoValue = servoValue + (verticaly_object_position) * 2
 
 					if servoValue < 1000:
 						servoValue = 1000
@@ -199,7 +200,7 @@ except Exception:
 	motors.clean()
 
 	cv2.destroyAllWindows()
-	vs.stop()
+	camera.stop()
 finally:
 	# do a bit of cleanup
 	relay.turn_off()
@@ -207,4 +208,4 @@ finally:
 	motors.clean()
 
 	cv2.destroyAllWindows()
-	vs.stop()
+	camera.stop()
