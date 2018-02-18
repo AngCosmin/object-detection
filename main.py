@@ -65,7 +65,7 @@ if __name__ == "__main__":
 				lastActiveTime = time()
 
 				# Activate motors
-				# motors.go_to_object(object_x)
+				motors.go_to_object(object_x)
 
 				# Activate servo
 				servo.compute(object_y)
