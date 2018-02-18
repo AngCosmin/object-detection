@@ -27,7 +27,7 @@ class Camera:
         mask = cv2.inRange(hsv, self.colorLower, self.colorUpper)
 
         # Apply gaussian blur
-        mask = cv2.GaussianBlur(mask, (5,5),0)
+        # mask = cv2.GaussianBlur(mask, (5,5),0)
 
         # Erodate to eliminate noise
         mask = cv2.erode(mask, None, iterations=2)
@@ -49,7 +49,7 @@ class Camera:
             M = cv2.moments(circle)
             center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
 
-            if radius > 7:
+            if radius > 10:
                 # draw the circle and centroid on the frame,
                 cv2.circle(frame, (int(x), int(y)), int(radius), (0, 255, 255), 2)
                 cv2.circle(frame, center, 5, (0, 0, 255), -1)
