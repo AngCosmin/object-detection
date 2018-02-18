@@ -69,6 +69,9 @@ if __name__ == "__main__":
 
 				# Activate servo
 				servo.compute(object_y)
+
+				motors.lastActiveTime = time()
+				servo.lastActiveTime = time()
 			else:
 				motors.stop()
 				motors.randomly_activate()
