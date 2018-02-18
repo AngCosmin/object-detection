@@ -99,7 +99,6 @@ class MotorsController:
                     self.movingTime = None
                     self.lastActiveTime = time()
         else:
-            print 'Moving randomly stop'            
             # self.stop()
 
     def clean(self):
