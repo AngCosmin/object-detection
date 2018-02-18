@@ -78,8 +78,8 @@ if __name__ == "__main__":
 				servo.randomly_activate()
 
 			# show the frame
-			cv2.imshow("Frame", frame)    
-			cv2.imshow("Mask", mask)
+			# cv2.imshow("Frame", frame)    
+			# cv2.imshow("Mask", mask)
 			
 			key = cv2.waitKey(1) & 0xFF
 
