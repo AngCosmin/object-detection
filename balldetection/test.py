@@ -39,19 +39,19 @@ while True:
     # Convert image to HSV
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
-    bright_red_lower_bounds = (0, 100, 100)
-    bright_red_upper_bounds = (10, 255, 255)
-    bright_red_mask = cv2.inRange(hsv, bright_red_lower_bounds, bright_red_upper_bounds)
+    # bright_red_lower_bounds = (0, 100, 100)
+    # bright_red_upper_bounds = (10, 255, 255)
+    # bright_red_mask = cv2.inRange(hsv, bright_red_lower_bounds, bright_red_upper_bounds)
 
-    dark_red_lower_bounds = (160, 100, 100)
-    dark_red_upper_bounds = (179, 255, 255)
-    dark_red_mask = cv2.inRange(hsv, dark_red_lower_bounds, dark_red_upper_bounds)
+    # dark_red_lower_bounds = (160, 100, 100)
+    # dark_red_upper_bounds = (179, 255, 255)
+    # dark_red_mask = cv2.inRange(hsv, dark_red_lower_bounds, dark_red_upper_bounds)
 
     # after masking the red shades out, I add the two images 
     mask = cv2.addWeighted(bright_red_mask, 1.0, dark_red_mask, 1.0, 0.0)
 
     # Get pieces within the color range
-    # mask = cv2.inRange(hsv, colorLower, colorUpper)
+    mask = cv2.inRange(hsv, colorLower, colorUpper)
 
     # Erodate to eliminate noise
     mask = cv2.erode(mask, None, iterations=2)
