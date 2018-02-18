@@ -18,7 +18,6 @@ class Ultrasonic:
         GPIO.output(self.trig_pin, False)
 
         while GPIO.input(self.echo_pin) == 0:
-            # print 'zero'
             pass
 
         pulse_start = time()
@@ -29,7 +28,7 @@ class Ultrasonic:
         pulse_end = time()
 
         pulse_duration = pulse_end - pulse_start
-        distance = pulse_duration * 17000
+        distance = pulse_duration * 17150
         distance = round(distance, 2)
 
         return distance
