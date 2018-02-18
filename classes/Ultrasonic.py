@@ -22,7 +22,7 @@ class Ultrasonic:
         value = 0
         while GPIO.input(self.echo_pin) == 0:
             value += 1
-            if value > 100:
+            if value > 1000:
                 break
             pass
 
