@@ -13,8 +13,10 @@ class Ultrasonic:
 
 
     def measure(self):
+        GPIO.output(self.trig_pin, False)
+        sleep(0.010)
         GPIO.output(self.trig_pin, True)
-        sleep(0.00001)
+        sleep(0.000011)
         GPIO.output(self.trig_pin, False)
 
         while GPIO.input(self.echo_pin) == 0:

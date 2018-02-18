@@ -17,7 +17,10 @@ class UltrasonicController:
 
     def measure(self):
         distance = self.front.measure()
-        print 'Distance: ' + str(distance)
+        if distance < 1 or distance > 200:
+            print 'Distance invalid'
+        else:
+            print 'Distance: ' + str(distance)
 
     def clean(self):
         print '[PINS] Cleaning up ultrasonic pins...'        

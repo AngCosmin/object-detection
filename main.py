@@ -60,7 +60,6 @@ if __name__ == "__main__":
 		while True:
 			frame, mask, object_x, object_y = camera.compute()
 			ultrasonic.measure()
-			sleep(0.05)
 
 			if object_x != sys.maxint and object_y != sys.maxint:
 				object_x = object_x - width / 2
@@ -79,8 +78,8 @@ if __name__ == "__main__":
 				servo.lastActiveTime = time()
 			else:
 				motors.stop()
-				motors.randomly_activate()
-				servo.randomly_activate()
+				# motors.randomly_activate()
+				# servo.randomly_activate()
 
 			# show the frame
 			# cv2.imshow("Frame", frame)    
