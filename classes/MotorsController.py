@@ -42,6 +42,7 @@ class MotorsController:
         print 'Motor left speed ' + str(left_speed) + ' Motor right speed ' + str(right_speed)  
         self.left.move(left_speed)
         self.right.move(right_speed)   
+        self.lastActiveTime = time()
 
     def go_to_object(self, object_x):
         if object_x > 15:
