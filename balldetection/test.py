@@ -10,25 +10,13 @@ import numpy as np
 colorLower = (29, 86, 6)
 colorUpper = (64, 255, 255)
 
-camera = VideoStream(usePiCamera=True)
+camera = VideoStream(usePiCamera=False)
 camera.start()
 
 time.sleep(1)
 
-def adjust_gamma(image, gamma=1.0):
-	# build a lookup table mapping the pixel values [0, 255] to
-	# their adjusted gamma values
-	invGamma = 1.0 / gamma
-	table = np.array([((i / 255.0) ** invGamma) * 255
-		for i in np.arange(0, 256)]).astype("uint8")
- 
-	# apply gamma correction using the lookup table
-	return cv2.LUT(image, table)
-
 while True:
     frame = camera.read()
-
-    frame = adjust_gamma(frame, gamma=1.5)
 
     # Resize frame
     frame = imutils.resize(frame, width=300)
