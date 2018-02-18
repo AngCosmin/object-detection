@@ -28,6 +28,7 @@ class ServoController:
     def change(self, value):
         self.servoValue = value
         self.head.change(value)
+        print 'Servo last active time: ' + str(self.lastActiveTime)
         self.lastActiveTime = time()
     
     def compute(self, object_y):
@@ -44,8 +45,9 @@ class ServoController:
                 self.head.change(self.servoValue)
 
     def randomly_activate(self):
-        if time() - self.lastActiveTime > 5:
+        if time() - self.lastActiveTime > 20:
             # He stayed for 5 seconds
+            print 'Moving servo random'
 
             if self.movingTime == None:
                 self.movingTime = time() + 1

@@ -39,10 +39,11 @@ class MotorsController:
         self.right.stop()
 
     def move_motors(self, left_speed, right_speed):
-        print 'Motor left speed ' + str(left_speed) + ' Motor right speed ' + str(right_speed)  
+        # print 'Motor left speed ' + str(left_speed) + ' Motor right speed ' + str(right_speed)  
         self.left.move(left_speed)
         self.right.move(right_speed)   
         self.lastActiveTime = time()
+        print 'Motors last active time: ' + str(self.lastActiveTime)
 
     def go_to_object(self, object_x):
         if object_x > 15:
@@ -85,7 +86,7 @@ class MotorsController:
             if self.movingTime == None:
                 # How much time to move ( 2 sec )
                 self.movingTime = time() + uniform(1, 3)
-                print 'Moving random for ' + str(self.movingTime - time())
+                print 'Moving motors random for ' + str(self.movingTime - time())
                 # Choose a random direction to move
                 self.direction = choice(['left', 'right'])
             else:
