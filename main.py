@@ -57,19 +57,20 @@ if __name__ == "__main__":
 	sleep(0.5)
 
 	try: 
-		ultrasonic.measure()
-		sleep(1)
-		ultrasonic.measure()
-		sleep(1)
-		ultrasonic.measure()
-		sleep(1)
-		ultrasonic.measure()
-		sleep(1)
-		ultrasonic.measure()
-		sleep(1)
-		
+		# ultrasonic.measure()
+		# sleep(1)
+		# ultrasonic.measure()
+		# sleep(1)
+		# ultrasonic.measure()
+		# sleep(1)
+		# ultrasonic.measure()
+		# sleep(1)
+		# ultrasonic.measure()
+		# sleep(1)
+
 		while True:
 			frame, mask, object_x, object_y = camera.compute()
+			ultrasonic.measure()
 
 
 			if object_x != sys.maxint and object_y != sys.maxint:
