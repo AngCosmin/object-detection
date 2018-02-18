@@ -67,6 +67,7 @@ if __name__ == "__main__":
 		sleep(1)
 		ultrasonic.measure()
 		sleep(1)
+		
 		while True:
 			frame, mask, object_x, object_y = camera.compute()
 
