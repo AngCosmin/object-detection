@@ -51,6 +51,7 @@ if __name__ == "__main__":
 	servo = ServoController()
 
 	relay.start()
+	sleep(0.5)
 
 	try: 
 		while True:
