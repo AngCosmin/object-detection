@@ -74,6 +74,8 @@ if __name__ == "__main__":
 			else:
 				motors.randomly_activate()
 
+			cv2.putText(frame, 'hello', (10, frame.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1)
+
 			# show the frame
 			cv2.imshow("Frame", frame)    
 			cv2.imshow("Mask", mask)
