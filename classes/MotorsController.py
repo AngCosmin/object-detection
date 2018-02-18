@@ -98,8 +98,8 @@ class MotorsController:
                 else:
                     self.movingTime = None
                     self.lastActiveTime = time()
-        else:
-            self.stop()
+        # else:
+        #     self.stop()
 
     def clean(self):
         print '[PINS] Cleaning up motors pins...'
