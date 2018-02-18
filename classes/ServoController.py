@@ -43,13 +43,12 @@ class ServoController:
                 self.head.change(self.servoValue)
 
     def randomly_activate(self):
-        if time() - self.lastActiveTime > 10:
+        if time() - self.lastActiveTime > 5:
             # He stayed for 5 seconds
 
             if self.movingTime == None:
-                # How much time to move ( 2 sec )
-                self.movingTime = time() + uniform(1, 3)
-                
+                self.movingTime = time() + 1
+
                 # Choose a random direction to move
                 self.direction = choice([1000, 1250, 1500, 1750, 2000])
             else:
