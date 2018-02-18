@@ -19,7 +19,7 @@ class Camera:
 
         print 'width = ' + str(self.width)
         # Resize frame
-        frame = imutils.resize(frame, width=self.width)
+        frame = imutils.resize(frame, width=400)
         print 'asd'
 
         # Convert image to HSV
