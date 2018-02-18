@@ -45,8 +45,7 @@ class ServoController:
 
     def randomly_activate(self):
         if time() - self.lastActiveTime > 3:
-            # He stayed for 5 seconds
-            print 'Moving servo random'
+            # He stayed for 3 seconds
 
             if self.movingTime == None:
                 self.movingTime = time() + 1

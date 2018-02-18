@@ -85,16 +85,14 @@ class MotorsController:
             if self.movingTime == None:
                 # How much time to move ( 2 sec )
                 self.movingTime = time() + uniform(1, 3)
-                print 'Moving motors random for ' + str(self.movingTime - time())
+                
                 # Choose a random direction to move
                 self.direction = choice(['left', 'right'])
             else:
                 if self.movingTime - time() > 0:
                     if self.direction == 'left':
-                        print 'Moving randomly left'
                         self.move_motors(-randint(30, 100), randint(30, 100))
                     else:
-                        print 'Moving randomly right'                        
                         self.move_motors(randint(30, 100), -randint(30, 100))							
                 else:
                     self.movingTime = None
