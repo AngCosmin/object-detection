@@ -28,7 +28,11 @@ class Ultrasonic:
 
         pulse_start = time()
         
+        value = 0
         while GPIO.input(self.echo_pin) == 1:
+            value += 1
+            if value > 1000:
+                break
             pass
 
         pulse_end = time()
