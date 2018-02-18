@@ -48,7 +48,7 @@ while True:
     # dark_red_mask = cv2.inRange(hsv, dark_red_lower_bounds, dark_red_upper_bounds)
 
     # after masking the red shades out, I add the two images 
-    mask = cv2.addWeighted(bright_red_mask, 1.0, dark_red_mask, 1.0, 0.0)
+    # mask = cv2.addWeighted(bright_red_mask, 1.0, dark_red_mask, 1.0, 0.0)
 
     # Get pieces within the color range
     mask = cv2.inRange(hsv, colorLower, colorUpper)
