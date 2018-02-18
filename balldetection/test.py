@@ -7,8 +7,8 @@ import sys
 import time
 import numpy as np
 
-colorLower = (160, 100, 100)
-colorUpper = (179, 255, 255)
+colorLower = (29, 86, 6)
+colorUpper = (64, 255, 255)
 
 camera = VideoStream(usePiCamera=True)
 camera.start()
