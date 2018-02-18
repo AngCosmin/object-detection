@@ -11,6 +11,7 @@ class Ultrasonic:
         GPIO.setup(self.trig_pin, GPIO.OUT)
 
     def measure(self):
+        GPIO.output(self.trig_pin, False)
         GPIO.output(self.trig_pin, True)
         sleep(0.00001)
         GPIO.output(self.trig_pin, False)
