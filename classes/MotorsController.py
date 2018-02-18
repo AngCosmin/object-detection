@@ -5,6 +5,7 @@ from time import sleep
 from time import time
 from random import choice
 from random import uniform
+from random import randint
 
 class MotorsController:
     def __init__(self):
@@ -91,10 +92,10 @@ class MotorsController:
                 if self.movingTime - time() > 0:
                     if self.direction == 'left':
                         print 'Moving randomly left'
-                        self.move_motors(-100, 100)
+                        self.move_motors(-randint(30, 100), randint(30, 100))
                     else:
                         print 'Moving randomly right'                        
-                        self.move_motors(100, -100)							
+                        self.move_motors(randint(30, 100), -randint(30, 100))							
                 else:
                     self.movingTime = None
                     self.lastActiveTime = time()

@@ -5,6 +5,7 @@ from time import sleep
 from time import time
 from random import choice
 from random import uniform
+from random import randint
 
 class ServoController:
     def __init__(self):
@@ -51,7 +52,7 @@ class ServoController:
                 self.movingTime = time() + 1
 
                 # Choose a random direction to move
-                self.direction = choice([1000, 1250, 1500, 1750, 2000])
+                self.direction = randint(1000, 2000)
             else:
                 if self.movingTime - time() > 0:
                     self.change(self.direction)							
