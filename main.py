@@ -56,9 +56,6 @@ if __name__ == "__main__":
 		while True:
 			frame, mask, object_x, object_y = camera.compute()
 
-			print object_x
-			print object_y
-
 			if object_x != sys.maxint and object_y != sys.maxint:
 				object_x = object_x - width / 2
 				object_y = object_y - height / 2

@@ -15,6 +15,8 @@ class Camera:
         x = sys.maxint
         y = sys.maxint
 
+        print 'asd'
+
         frame = self.camera.read()
 
         # Resize frame
