@@ -70,6 +70,7 @@ if __name__ == "__main__":
 				# Activate servo
 				servo.compute(object_y)
 			else:
+				motors.stop()
 				motors.randomly_activate()
 				servo.randomly_activate()
 

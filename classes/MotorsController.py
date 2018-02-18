@@ -91,15 +91,15 @@ class MotorsController:
                 if self.movingTime - time() > 0:
                     if self.direction == 'left':
                         print 'Moving randomly left'
-                        # self.move_motors(-100, 100)
+                        self.move_motors(-100, 100)
                     else:
                         print 'Moving randomly right'                        
-                        # self.move_motors(100, -100)							
+                        self.move_motors(100, -100)							
                 else:
                     self.movingTime = None
                     self.lastActiveTime = time()
-        # else:
-        #     self.stop()
+        else:
+            self.stop()
 
     def clean(self):
         print '[PINS] Cleaning up motors pins...'
