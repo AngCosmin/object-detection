@@ -28,7 +28,7 @@ def adjust_gamma(image, gamma=1.0):
 while True:
     frame = camera.read()
 
-    frame = adjust_gamma(frame, gamma=2.5)
+    frame = adjust_gamma(frame, gamma=1)
 
     # Resize frame
     frame = imutils.resize(frame, width=300)
