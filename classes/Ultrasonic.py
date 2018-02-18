@@ -16,9 +16,11 @@ class Ultrasonic:
         GPIO.output(self.trig_pin, False)
 
         while GPIO.input(self.echo_pin) == 0:
+            print 'Measure 0'
             pulse_start = time()
         
         while GPIO.input(self.echo_pin) == 1:
+            print 'Measure 1'            
             pulse_end = time()
 
         pulse_duration = pulse_end - pulse_start
