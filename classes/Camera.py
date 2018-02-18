@@ -15,12 +15,13 @@ class Camera:
         x = sys.maxint
         y = sys.maxint
 
-        print 'asd'
-
         frame = self.camera.read()
 
         # Resize frame
         frame = imutils.resize(frame, width=self.width)
+
+        print 'asd'
+
 
         # Convert image to HSV
         hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
