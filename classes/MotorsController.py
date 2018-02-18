@@ -4,6 +4,7 @@ from classes.Motor import Motor
 from time import sleep
 from time import time
 from random import choice
+from random import uniform
 
 class MotorsController:
     def __init__(self):
@@ -82,7 +83,8 @@ class MotorsController:
 
             if self.movingTime == None:
                 # How much time to move ( 2 sec )
-                self.movingTime = time() + 2
+                self.movingTime = time() + uniform(1, 3)
+                print 'Moving random for ' + str(self.movingTime - time())
                 # Choose a random direction to move
                 self.direction = choice(['left', 'right'])
             else:
