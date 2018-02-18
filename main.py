@@ -86,6 +86,8 @@ if __name__ == "__main__":
 			if key == ord("q"):
 				clean()
 				break		
+	except KeyboardInterrupt:
+		clean()
 
 	except Exception as e: 
 		print e
