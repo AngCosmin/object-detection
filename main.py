@@ -40,6 +40,7 @@ def clean():
 	motors.clean()
 	relay.clean()
 	servo.clean()
+	ultrasonic.clean()
 	camera.clean()
 	GPIO.cleanup()
 
