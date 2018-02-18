@@ -28,7 +28,7 @@ class MotorsController:
             self.right = Motor(PIN_1_RIGHT, PIN_2_RIGHT, PIN_PWM_RIGHT)  
 
             # The time when he did last action
-            self.lastActiveTime = 0
+            self.lastActiveTime = time()
             self.movingTime = None
             self.direction = None       
         except Exception as e:
@@ -42,8 +42,6 @@ class MotorsController:
         # print 'Motor left speed ' + str(left_speed) + ' Motor right speed ' + str(right_speed)  
         self.left.move(left_speed)
         self.right.move(right_speed)   
-        self.lastActiveTime = time()
-        print 'Motors last active time: ' + str(self.lastActiveTime)
 
     def go_to_object(self, object_x):
         if object_x > 15:
@@ -80,7 +78,7 @@ class MotorsController:
         	self.move_motors(100, 100)   
 
     def randomly_activate(self):
-        if time() - self.lastActiveTime > 10:
+        if time() - self.lastActiveTime > 5:
             # He stayed for 10 seconds
 
             if self.movingTime == None:

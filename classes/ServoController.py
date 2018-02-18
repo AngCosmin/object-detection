@@ -28,8 +28,6 @@ class ServoController:
     def change(self, value):
         self.servoValue = value
         self.head.change(value)
-        print 'Servo last active time: ' + str(self.lastActiveTime)
-        self.lastActiveTime = time()
     
     def compute(self, object_y):
         if abs(object_y) > 10:
