@@ -79,7 +79,7 @@ class MotorsController:
         	self.move_motors(100, 100)   
 
     def randomly_activate(self):
-        if time() - self.lastActiveTime > 5:
+        if time() - self.lastActiveTime > 10:
             # He stayed for 10 seconds
 
             if self.movingTime == None:
