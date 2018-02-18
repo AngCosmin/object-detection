@@ -4,6 +4,7 @@ from imutils.video import VideoStream
 from classes.MotorsController import MotorsController
 from classes.ServoController import ServoController
 from classes.RelayController import RelayController
+from classes.UltrasonicController import UltrasonicController
 from classes.Camera import Camera
 from time import sleep
 from time import time
@@ -49,6 +50,7 @@ if __name__ == "__main__":
 	motors = MotorsController()
 	relay = RelayController()
 	servo = ServoController()
+	ultrasonic = UltrasonicController()
 
 	relay.start()
 	sleep(0.5)
@@ -56,6 +58,8 @@ if __name__ == "__main__":
 	try: 
 		while True:
 			frame, mask, object_x, object_y = camera.compute()
+
+			ultrasonic.measure()
 
 			if object_x != sys.maxint and object_y != sys.maxint:
 				object_x = object_x - width / 2
