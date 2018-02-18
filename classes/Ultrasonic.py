@@ -19,7 +19,9 @@ class Ultrasonic:
         sleep(0.000011)
         GPIO.output(self.trig_pin, False)
 
+        value = 0
         while GPIO.input(self.echo_pin) == 0:
+            print value++
             pass
 
         pulse_start = time()
