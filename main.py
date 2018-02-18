@@ -71,7 +71,7 @@ if __name__ == "__main__":
 		while True:
 			frame, mask, object_x, object_y = camera.compute()
 			ultrasonic.measure()
-
+			sleep(1)
 
 			if object_x != sys.maxint and object_y != sys.maxint:
 				object_x = object_x - width / 2
